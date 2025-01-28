@@ -1,9 +1,19 @@
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    '@electron-toolkit/eslint-config-ts/recommended',
-    '@electron-toolkit/eslint-config-prettier'
-  ]
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime',
+		'@electron-toolkit/eslint-config-ts/recommended',
+		'@electron-toolkit/eslint-config-prettier',
+		'prettier'
+	],
+	plugins: ['prettier'],
+	rules: {
+		'prettier/prettier': 'error' // Показывает ошибки Prettier как ошибки ESLint
+	},
+	settings: {
+		react: {
+			version: 'detect'
+		}
+	}
 }

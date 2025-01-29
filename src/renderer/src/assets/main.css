@@ -2,19 +2,20 @@
 
 body {
 	display: flex;
-	align-items: center;
 	justify-content: center;
-	overflow: hidden;
+	align-items: center;
 	background-image: url('./wavy-lines.svg');
 	background-size: cover;
+	overflow: hidden;
 	user-select: none;
 }
 
 code {
-	font-weight: 600;
-	padding: 3px 5px;
 	border-radius: 2px;
 	background-color: var(--color-background-mute);
+	padding: 3px 5px;
+	font-weight: 600;
+	font-size: 85%;
 	font-family:
 		ui-monospace,
 		SFMono-Regular,
@@ -23,24 +24,23 @@ code {
 		Consolas,
 		Liberation Mono,
 		monospace;
-	font-size: 85%;
 }
 
 #root {
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 80px;
 }
 
 .logo {
 	margin-bottom: 20px;
 	-webkit-user-drag: none;
-	height: 128px;
-	width: 128px;
-	will-change: filter;
 	transition: filter 300ms;
+	will-change: filter;
+	width: 128px;
+	height: 128px;
 }
 
 .logo:hover {
@@ -48,28 +48,28 @@ code {
 }
 
 .creator {
-	font-size: 14px;
-	line-height: 16px;
+	margin-bottom: 10px;
 	color: var(--ev-c-text-2);
 	font-weight: 600;
-	margin-bottom: 10px;
+	font-size: 14px;
+	line-height: 16px;
 }
 
 .text {
-	font-size: 28px;
-	color: var(--ev-c-text-1);
-	font-weight: 700;
-	line-height: 32px;
-	text-align: center;
 	margin: 0 10px;
 	padding: 16px 0;
+	color: var(--ev-c-text-1);
+	font-weight: 700;
+	font-size: 28px;
+	line-height: 32px;
+	text-align: center;
 }
 
 .tip {
-	font-size: 16px;
-	line-height: 24px;
 	color: var(--ev-c-text-2);
 	font-weight: 600;
+	font-size: 16px;
+	line-height: 24px;
 }
 
 .react {
@@ -90,10 +90,10 @@ code {
 
 .actions {
 	display: flex;
-	padding-top: 32px;
-	margin: -6px;
 	flex-wrap: wrap;
 	justify-content: flex-start;
+	margin: -6px;
+	padding-top: 32px;
 }
 
 .action {
@@ -102,50 +102,50 @@ code {
 }
 
 .action a {
-	cursor: pointer;
-	text-decoration: none;
 	display: inline-block;
+	cursor: pointer;
 	border: 1px solid transparent;
-	text-align: center;
-	font-weight: 600;
-	white-space: nowrap;
-	border-radius: 20px;
-	padding: 0 20px;
-	line-height: 38px;
-	font-size: 14px;
 	border-color: var(--ev-button-alt-border);
-	color: var(--ev-button-alt-text);
+	border-radius: 20px;
 	background-color: var(--ev-button-alt-bg);
+	padding: 0 20px;
+	color: var(--ev-button-alt-text);
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 38px;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
 }
 
 .action a:hover {
 	border-color: var(--ev-button-alt-hover-border);
-	color: var(--ev-button-alt-hover-text);
 	background-color: var(--ev-button-alt-hover-bg);
+	color: var(--ev-button-alt-hover-text);
 }
 
 .versions {
+	display: inline-flex;
 	position: absolute;
 	bottom: 30px;
-	margin: 0 auto;
-	padding: 15px 0;
-	font-family: 'Menlo', 'Lucida Console', monospace;
-	display: inline-flex;
-	overflow: hidden;
 	align-items: center;
+	backdrop-filter: blur(24px);
+	margin: 0 auto;
 	border-radius: 22px;
 	background-color: #202127;
-	backdrop-filter: blur(24px);
+	padding: 15px 0;
+	overflow: hidden;
+	font-family: 'Menlo', 'Lucida Console', monospace;
 }
 
 .versions li {
 	display: block;
 	float: left;
+	opacity: 0.8;
 	border-right: 1px solid var(--ev-c-gray-1);
 	padding: 0 20px;
 	font-size: 14px;
 	line-height: 14px;
-	opacity: 0.8;
 	&:last-child {
 		border: none;
 	}

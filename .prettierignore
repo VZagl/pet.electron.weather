@@ -1,6 +1,7 @@
-out
+.qodo
+build
 dist
+out
 pnpm-lock.yaml
+yarn.lock
 LICENSE.md
-tsconfig.json
-tsconfig.*.json

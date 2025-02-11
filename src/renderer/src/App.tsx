@@ -1,9 +1,23 @@
+import { JSX } from 'react';
 import electronLogo from './assets/electron.svg';
 import Versions from './components/Versions';
 
-function App(): JSX.Element {
-	const ipcHandle = (): void => window.electron.ipcRenderer.send('ping');
+export const App = (): JSX.Element => {
+	window.api.app
+		.loadPreferences()
+		.then((result) => {
+			console.log('#App window.app.loadPreferences().then(result) =', result);
+		})
+		.catch((reason) => {
+			console.log('#App window.app.loadPreferences().catch(reason) =', reason);
+		});
 
+	const ipcHandle = (): void => {
+		// window.apiElectron.ipcRenderer.send(E_apiApp.ping);
+		window.api.app.ping('ping - test data');
+	};
+
+	console.log('#App.render');
 	return (
 		<>
 			<img alt='logo' className='logo' src={electronLogo} />
@@ -30,6 +44,4 @@ function App(): JSX.Element {
 			<Versions></Versions>
 		</>
 	);
-}
-
-export default App;
+};

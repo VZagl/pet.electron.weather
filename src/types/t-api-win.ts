@@ -1,4 +1,6 @@
-export const c_channelWin = 'win:send';
+export const c_channelWin = 'win:';
+export const c_channelWinSendAction = c_channelWin + 'send-action';
+// export const c_channelWinInvoke = c_channelWin + 'invoke';
 
 export enum e_actionsWin {
 	show = 'show',
@@ -9,5 +11,6 @@ export enum e_actionsWin {
 }
 
 export interface i_apiWin {
-	send: (action: e_actionsWin) => void;
+	sendAction: (action: e_actionsWin) => void;
+	// invoke: () => Promise<void>;
 }

@@ -6,7 +6,9 @@
 	"main": "./out/main/index.js",
 	"author": "example.com",
 	"homepage": "https://electron-vite.org",
+	"license": "MIT",
 	"scripts": {
+		"preinstall": "npx only-allow pnpm",
 		"format": "prettier --write .",
 		"lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
 		"typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
@@ -54,5 +56,9 @@
 		"vite": "^6.1.0",
 		"vite-tsconfig-paths": "^5.1.4"
 	},
-	"packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+	"engines": {
+		"node": "23",
+		"pnpm": "10"
+	},
+	"packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af"
 }

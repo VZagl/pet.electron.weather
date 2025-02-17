@@ -1,16 +1,16 @@
-import { JSX } from 'react';
+import { observer } from 'mobx-react-lite';
+import { JSX, useEffect } from 'react';
 import electronLogo from './assets/electron.svg';
 import Versions from './components/Versions';
 
-export const App = (): JSX.Element => {
-	window.api.app
-		.loadPreferences()
-		.then((result) => {
-			console.log('#App window.app.loadPreferences().then(result) =', result);
-		})
-		.catch((reason) => {
-			console.log('#App window.app.loadPreferences().catch(reason) =', reason);
-		});
+import { appConfigStore } from '~/stores/AppConfigStore';
+
+export const App = observer((): JSX.Element => {
+	const { config } = appConfigStore;
+
+	useEffect(() => {
+		console.log('#App.useEffect[config] config = ', JSON.stringify(config));
+	}, [config]);
 
 	const ipcHandle = (): void => {
 		// window.apiElectron.ipcRenderer.send(E_apiApp.ping);
@@ -44,4 +44,4 @@ export const App = (): JSX.Element => {
 			<Versions></Versions>
 		</>
 	);
-};
+});

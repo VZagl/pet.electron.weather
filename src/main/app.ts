@@ -1,9 +1,10 @@
 import { is, platform } from '@electron-toolkit/utils';
-import { BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell } from 'electron';
 import path, { join } from 'path';
 
 import icon from '../../resources/icon.png?asset';
 import { e_api } from '../types/t-api';
+import { ConfigLoader } from './ConfigLoader';
 
 const installExtensions = async () => {
 	const installer = require('electron-devtools-installer');
@@ -30,7 +31,7 @@ const installExtensions = async () => {
 		.finally(() => console.log(`Extensions loading... END`));
 };
 
-export async function createAppWindow(): Promise<void> {
+export async function createAppWindow(configLoader: ConfigLoader): Promise<void> {
 	console.log('#app.createAppWindow');
 	if (is.dev) {
 		await installExtensions();
@@ -82,11 +83,14 @@ export async function createAppWindow(): Promise<void> {
 	} else {
 		win.loadFile(path.join(__dirname, '../renderer/index.html'));
 	}
+
 	//
 	ipcMain.handle(e_api.app.loadPrefs, async () => {
 		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.loadPrefs} )`);
-		return { data: `#app.createAppWindow/ipcMain.handle( ${e_api.app.loadPrefs} )` };
+		const config = configLoader.config;
+		return config;
 	});
+
 	// IPC test
 	ipcMain.on(e_api.app.ping, (event, ...args) =>
 		console.log(`#app/ipcMain.on( ${e_api.app.ping} )\n\tevent = ${event}\n\targs = `, args)

@@ -2,9 +2,13 @@ import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
 
 import { createAppWindow } from './app';
+import { ConfigLoader } from './ConfigLoader';
+
+const configLoader = new ConfigLoader();
+console.log('[INFO] config = ', configLoader);
 
 function createWindow(): void {
-	createAppWindow();
+	createAppWindow(configLoader);
 }
 
 // This method will be called when Electron has finished
@@ -41,3 +45,13 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+// Сохранение конфигурации при закрытии приложения
+app.on('before-quit', () => {
+	try {
+		configLoader.saveConfig();
+		console.log('[INFO] Конфигурация успешно сохранена.');
+	} catch (error) {
+		console.error('[ERROR] Ошибка при сохранении конфигурации:', error);
+	}
+});

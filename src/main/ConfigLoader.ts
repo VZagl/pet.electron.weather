@@ -3,12 +3,12 @@ import JSON5 from 'json5';
 import * as path from 'path';
 
 import packageJson from '../../package.json';
-import { I_AppConfig } from '../types/i-app-config';
+import { i_appConfig } from '../types/i_appConfig';
 
 const pathDefault = path.resolve(process.cwd(), 'config.json5');
 
-export class ConfigLoader {
-	private _config: I_AppConfig;
+export class t_configLoader {
+	private _config: i_appConfig;
 
 	constructor(configFilePath: string = pathDefault) {
 		this._config = this.loadConfig(configFilePath);
@@ -18,14 +18,14 @@ export class ConfigLoader {
 		return this._config;
 	}
 
-	private loadConfig(configFilePath: string): I_AppConfig {
+	private loadConfig(configFilePath: string): i_appConfig {
 		try {
 			const fileContent = fs.readFileSync(configFilePath, 'utf-8');
-			const config = JSON5.parse(fileContent) as I_AppConfig;
+			const config = JSON5.parse(fileContent) as i_appConfig;
 			return config;
 		} catch (error) {
 			console.error(`[WARN] Failed to load configuration [${configFilePath}]`);
-			const AppConfig: I_AppConfig = {
+			const AppConfig: i_appConfig = {
 				version: `${packageJson.version}`,
 			};
 			return AppConfig;
@@ -44,11 +44,11 @@ export class ConfigLoader {
 		}
 	}
 
-	public get(key: keyof I_AppConfig): any {
+	public get(key: keyof i_appConfig): any {
 		return this._config[key];
 	}
 
-	public getAll(): I_AppConfig {
+	public getAll(): i_appConfig {
 		return this._config;
 	}
 }

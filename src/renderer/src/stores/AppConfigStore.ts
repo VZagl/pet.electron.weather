@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx';
 
-import { I_AppConfig } from 'src/types/i-app-config';
+import { i_appConfig_renderer } from 'src/types/i_appConfig_renderer';
 
 export class T_AppConfigStore {
 	constructor() {
 		makeAutoObservable(this);
 	}
 
-	private _config: I_AppConfig | undefined;
+	private _config: i_appConfig_renderer | undefined;
 
 	get config() {
 		return this._config;

@@ -2,9 +2,9 @@ import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
 
 import { createAppWindow } from './app';
-import { ConfigLoader } from './ConfigLoader';
+import { t_configLoader } from './configLoader';
 
-const configLoader = new ConfigLoader();
+const configLoader = new t_configLoader();
 console.log('[INFO] config = ', configLoader);
 
 function createWindow(): void {

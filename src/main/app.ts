@@ -1,10 +1,10 @@
 import { is, platform } from '@electron-toolkit/utils';
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { BrowserWindow, ipcMain, shell } from 'electron';
 import path, { join } from 'path';
 
 import icon from '../../resources/icon.png?asset';
-import { e_api } from '../types/t-api';
-import { ConfigLoader } from './ConfigLoader';
+import { e_api } from '../types/t_api';
+import { t_configLoader } from './configLoader';
 
 const installExtensions = async () => {
 	const installer = require('electron-devtools-installer');
@@ -31,7 +31,7 @@ const installExtensions = async () => {
 		.finally(() => console.log(`Extensions loading... END`));
 };
 
-export async function createAppWindow(configLoader: ConfigLoader): Promise<void> {
+export async function createAppWindow(configLoader: t_configLoader): Promise<void> {
 	console.log('#app.createAppWindow');
 	if (is.dev) {
 		await installExtensions();
@@ -64,9 +64,10 @@ export async function createAppWindow(configLoader: ConfigLoader): Promise<void>
 	});
 
 	win.webContents.on('dom-ready', () => {
+		if (!is.dev) return;
 		console.log('#app/win.webContents.on(dom-ready)');
-		win.webContents.openDevTools();
-		// win.webContents.openDevTools({ mode: 'bottom' });
+		// win.webContents.openDevTools();
+		win.webContents.openDevTools({ mode: 'bottom' });
 		// createView(win, url);
 	});
 
@@ -87,7 +88,7 @@ export async function createAppWindow(configLoader: ConfigLoader): Promise<void>
 	//
 	ipcMain.handle(e_api.app.loadPrefs, async () => {
 		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.loadPrefs} )`);
-		const config = configLoader.config;
+		const config = configLoader.config.renderer;
 		return config;
 	});
 

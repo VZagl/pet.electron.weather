@@ -1,13 +1,6 @@
 import { i_appConfig_renderer } from './i_appConfig_renderer';
 
-const c_channelApp = 'app:';
-
-export enum e_apiApp {
-	loadPrefs = c_channelApp + 'load-prefs',
-	getWeather = c_channelApp + 'get-weather',
-	ping = c_channelApp + 'ping',
-	// ipcRenderer = c_channelApp + 'ipcRenderer',
-}
+export const c_channelApp = 'app:';
 
 export interface i_apiApp {
 	/*
@@ -19,5 +12,6 @@ export interface i_apiApp {
   */
 	getWeather: (data: Object, callback: Function) => Object;
 	loadPreferences: () => Promise<i_appConfig_renderer>;
+	savePreferences: (config: i_appConfig_renderer) => void;
 	ping: (data: any) => void;
 }

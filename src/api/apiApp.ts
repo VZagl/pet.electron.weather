@@ -1,9 +1,10 @@
 import { ipcRenderer } from 'electron';
-
-import { e_apiApp, i_apiApp } from '../types/t_apiApp';
+import { e_apiApp } from '../types/e_apiApp';
+import { i_apiApp } from '../types/i_apiApp';
+import { i_appConfig_renderer } from '../types/i_appConfig_renderer';
 
 export const apiApp: i_apiApp = {
-	/*
+	/** /
 	ipcRenderer: {
 		sendMessage(channel: e_apiApp, ...args: unknown[]) {
 			ipcRenderer.send(channel, ...args);
@@ -20,7 +21,8 @@ export const apiApp: i_apiApp = {
 			ipcRenderer.once(channel, (_event, ...args) => func(...args));
 		},
 	},
-  */
+	/**/
+
 	getWeather: async (data, callback) => {
 		console.log('#preload/index#api.getWeather data=', data);
 		try {
@@ -31,6 +33,7 @@ export const apiApp: i_apiApp = {
 			callback({});
 		}
 	},
+
 	// демо из https://www.electronjs.org/ru/docs/latest/tutorial/context-isolation#usage-with-typescript
 	loadPreferences: async () => {
 		console.log('#preload/index#api.loadPreferences... start');
@@ -38,6 +41,11 @@ export const apiApp: i_apiApp = {
 		console.log('#preload/index#api.loadPreferences result =', result);
 		return result;
 	},
+
+	savePreferences: function (config: i_appConfig_renderer): void {
+		ipcRenderer.send(e_apiApp.savePrefs, config);
+	},
+
 	ping: (data): void => {
 		ipcRenderer.send(e_apiApp.ping, data);
 	},

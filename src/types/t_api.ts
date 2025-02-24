@@ -1,7 +1,9 @@
 import { ElectronAPI as i_electronAPI } from '@electron-toolkit/preload';
 
-import { e_apiApp, i_apiApp } from './t_apiApp';
-import { e_actionsWin, i_apiWin } from './t_apiWin';
+import { e_actionsWin } from './e_actionsWin';
+import { e_apiApp } from './e_apiApp';
+import { i_apiApp } from './i_apiApp';
+import { i_apiWin } from './i_apiWin';
 
 class te_api {
 	readonly app = e_apiApp;

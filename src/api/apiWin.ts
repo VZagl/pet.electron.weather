@@ -1,5 +1,5 @@
 import { ipcRenderer } from 'electron';
-import { c_channelWinSendAction, i_apiWin } from '../types/t_apiWin';
+import { c_channelWinSendAction, i_apiWin } from '../types/i_apiWin';
 
 export const apiWin: i_apiWin = {
 	sendAction: (action) => {

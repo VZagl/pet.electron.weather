@@ -38,5 +38,17 @@ export default defineConfig({
 				/**/
 			},
 		},
+		resolve: {
+			alias: {
+				'~': path.resolve(__dirname, 'src/renderer/src'),
+			},
+		},
+		css: {
+			preprocessorOptions: {
+				scss: {
+					api: 'modern-compiler',
+				},
+			},
+		},
 	},
 });

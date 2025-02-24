@@ -19,17 +19,19 @@ export class t_configLoader {
 	}
 
 	private loadConfig(configFilePath: string): i_appConfig {
+		let config: i_appConfig;
 		try {
 			const fileContent = fs.readFileSync(configFilePath, 'utf-8');
-			const config = JSON5.parse(fileContent) as i_appConfig;
-			return config;
+			config = JSON5.parse(fileContent); // as i_appConfig;
 		} catch (error) {
 			console.error(`[WARN] Failed to load configuration [${configFilePath}]`);
-			const AppConfig: i_appConfig = {
+			config = {
 				version: `${packageJson.version}`,
 			};
-			return AppConfig;
 		}
+		if (!config.main) config.main = {};
+		if (!config.renderer) config.renderer = {};
+		return config;
 	}
 
 	public saveConfig(configFilePath: string = pathDefault): void {
@@ -37,7 +39,7 @@ export class t_configLoader {
 			const jsonString = JSON5.stringify(this._config, null, '\t');
 			// const jsonString = JSON5.stringify(this.config, null, 2);
 			fs.writeFileSync(configFilePath, jsonString, 'utf-8');
-			console.log(`[INFO] Configuration saved to [${configFilePath}]`);
+			console.log(`[INFO] Configuration saved to [${configFilePath}] = `, jsonString);
 		} catch (error) {
 			console.error(`[ERROR] Failed to save configuration [${configFilePath}]`, error);
 			throw new Error('Failed to save configuration');

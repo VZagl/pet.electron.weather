@@ -3,6 +3,7 @@ import { BrowserWindow, ipcMain, shell } from 'electron';
 import path, { join } from 'path';
 
 import icon from '../../resources/icon.png?asset';
+import { i_appConfig_renderer } from '../types/i_appConfig_renderer';
 import { e_api } from '../types/t_api';
 import { t_configLoader } from './configLoader';
 
@@ -90,6 +91,12 @@ export async function createAppWindow(configLoader: t_configLoader): Promise<voi
 		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.loadPrefs} )`);
 		const config = configLoader.config.renderer;
 		return config;
+	});
+
+	//
+	ipcMain.on(e_api.app.savePrefs, (_event, config: i_appConfig_renderer) => {
+		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.savePrefs} ) config = `, config);
+		configLoader.config.renderer = config;
 	});
 
 	// IPC test

@@ -1,4 +1,5 @@
 import { JSX, useState } from 'react';
+import { withDescription } from './withDescription';
 
 function Versions(): JSX.Element {
 	const [versions] = useState(window.electron.process.versions);
@@ -12,4 +13,6 @@ function Versions(): JSX.Element {
 	);
 }
 
-export default Versions;
+const component = withDescription(Versions);
+
+export { component as Versions };

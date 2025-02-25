@@ -13,8 +13,8 @@
 		"jsx": "react-jsx",
 		"baseUrl": ".",
 		"paths": {
-			"src/*": ["src/*"],
-			"~/*": ["src/renderer/src/*"]
+			"~/*": ["src/renderer/src/*"],
+			"src/*": ["src/*"]
 		}
 	}
 }

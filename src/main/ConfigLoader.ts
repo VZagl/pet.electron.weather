@@ -9,15 +9,32 @@ const pathDefault = path.resolve(process.cwd(), 'config.json5');
 
 export class t_configLoader {
 	private _config: i_appConfig;
+	private configFilePath: string;
 
 	constructor(configFilePath: string = pathDefault) {
-		this._config = this.loadConfig(configFilePath);
+		this.configFilePath = configFilePath;
+		this._config = { version: `${packageJson.version}` };
+		// this._config = this.loadConfig(configFilePath);
 	}
 
 	get config() {
 		return this._config;
 	}
 
+	public async loadConfig(): Promise<i_appConfig> {
+		try {
+			const fileContent = await fs.promises.readFile(this.configFilePath, 'utf-8');
+			this._config = JSON5.parse(fileContent);
+		} catch (error) {
+			console.error(`[WARN] Failed to load configuration [${this.configFilePath}]`);
+			this._config = { version: `${packageJson.version}` };
+		}
+		if (!this._config.main) this._config.main = {};
+		if (!this._config.renderer) this._config.renderer = {};
+		return this._config;
+	}
+
+	/*
 	private loadConfig(configFilePath: string): i_appConfig {
 		let config: i_appConfig;
 		try {
@@ -33,6 +50,7 @@ export class t_configLoader {
 		if (!config.renderer) config.renderer = {};
 		return config;
 	}
+  */
 
 	public saveConfig(configFilePath: string = pathDefault): void {
 		try {

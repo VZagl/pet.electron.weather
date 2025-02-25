@@ -3,7 +3,6 @@ import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import { globSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
 	main: {
@@ -17,7 +16,7 @@ export default defineConfig({
 		plugins: process.env.NODE_ENV === 'production' ? [externalizeDepsPlugin()] : [],
 	},
 	renderer: {
-		plugins: [tsconfigPaths(), react()],
+		plugins: [react()],
 		build: {
 			rollupOptions: {
 				input:
@@ -40,6 +39,7 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
+				src: path.resolve(__dirname, 'src'),
 				'~': path.resolve(__dirname, 'src/renderer/src'),
 			},
 		},

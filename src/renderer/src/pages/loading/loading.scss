@@ -4,32 +4,35 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url('./wavy-lines.svg');
-	background-size: cover;
-	// overflow: hidden;
-	// user-select: none;
-}
-
-code {
-	border-radius: 2px;
-	background-color: var(--color-background-mute);
-	padding: 3px 5px;
-	font-weight: 600;
-	font-size: 85%;
+	margin: 0;
+	background-color: var(--color-background);
+	height: 100vh;
+	color: var(--color-text);
 	font-family:
-		ui-monospace,
-		SFMono-Regular,
-		SF Mono,
-		Menlo,
-		Consolas,
-		Liberation Mono,
-		monospace;
+		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-#root {
+.loading-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 80px;
+}
+
+.spinner {
+	animation: spin 2s linear infinite;
+	border: 16px solid #f3f3f3; /* Light grey */
+	border-top: 16px solid var(--color-text); /* Blue */
+	border-radius: 50%;
+	width: 120px;
+	height: 120px;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }

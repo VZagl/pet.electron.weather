@@ -49,8 +49,8 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				'~': path.resolve(__dirname, 'src/renderer/src'),
-				src: path.resolve(__dirname, 'src'),
+				'@': path.resolve(__dirname, 'src/renderer'),
+				'@src': path.resolve(__dirname, 'src'),
 			},
 		},
 		css: {

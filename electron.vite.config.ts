@@ -11,6 +11,13 @@ export default defineConfig({
       что упрощает процесс сборки и снижает нагрузку в режиме разработки.
     */
 		plugins: process.env.NODE_ENV === 'production' ? [externalizeDepsPlugin()] : [],
+		resolve: {
+			alias: {
+				'~': path.resolve(__dirname, 'src/main'),
+				'~src': path.resolve(__dirname, 'src'),
+				'~types': path.resolve(__dirname, 'src/types'),
+			},
+		},
 	},
 	preload: {
 		plugins: process.env.NODE_ENV === 'production' ? [externalizeDepsPlugin()] : [],
@@ -49,8 +56,9 @@ export default defineConfig({
 		},
 		resolve: {
 			alias: {
-				'@': path.resolve(__dirname, 'src/renderer'),
-				'@src': path.resolve(__dirname, 'src'),
+				'~': path.resolve(__dirname, 'src/renderer'),
+				'~src': path.resolve(__dirname, 'src'),
+				'~types': path.resolve(__dirname, 'src/types'),
 			},
 		},
 		css: {

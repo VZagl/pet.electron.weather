@@ -1,4 +1,4 @@
-import { i_api, i_electronAPI } from './t_api';
+import { i_api, i_electronAPI } from '~types/t_api';
 
 declare global {
 	interface Window {

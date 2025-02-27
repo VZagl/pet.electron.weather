@@ -4,6 +4,7 @@ import { ErrorBoundary } from '~/components/errorBoundary/ErrorBoundary';
 import { App } from '~/features/App';
 import { Init } from '~/features/Init';
 import './main.scss';
+import './types/t_global.ts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>

@@ -1,9 +1,9 @@
 import { is, platform } from '@electron-toolkit/utils';
 import { BrowserWindow, shell } from 'electron';
 import path, { join } from 'path';
-import icon from '../../../resources/icon.png?asset';
-import { e_api } from '../../types/t_api';
-import { installExtensions } from '../installExtensions';
+import { installExtensions } from '~/installExtensions';
+import { e_api } from '~types/t_api';
+import icon from '/resources/icon.png?asset';
 
 export async function createAppWindow(): Promise<BrowserWindow> {
 	console.log('#app.createAppWindow');

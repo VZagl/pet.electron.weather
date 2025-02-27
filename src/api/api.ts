@@ -1,4 +1,4 @@
-import { i_api } from '../types/t_api';
+import { i_api } from '~types/t_api';
 import { apiApp } from './apiApp';
 import { apiWin } from './apiWin';
 

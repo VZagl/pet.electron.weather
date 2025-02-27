@@ -1,7 +1,7 @@
 import { ipcRenderer } from 'electron';
-import { e_apiApp } from '../types/e_apiApp';
-import { i_apiApp } from '../types/i_apiApp';
-import { i_appConfig_renderer } from '../types/i_appConfig_renderer';
+import { e_apiApp } from '~types/e_apiApp';
+import { i_apiApp } from '~types/i_apiApp';
+import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 
 export const apiApp: i_apiApp = {
 	/** /

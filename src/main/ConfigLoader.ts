@@ -1,9 +1,8 @@
 import * as fs from 'fs';
 import JSON5 from 'json5';
 import * as path from 'path';
-
+import { i_appConfig } from '~types/i_appConfig';
 import packageJson from '../../package.json';
-import { i_appConfig } from '../types/i_appConfig';
 
 const pathDefault = path.resolve(process.cwd(), 'config.json5');
 

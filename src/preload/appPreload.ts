@@ -1,7 +1,6 @@
 import { electronAPI } from '@electron-toolkit/preload';
 import { contextBridge } from 'electron';
-
-import { api } from '../api/api';
+import { api } from '~src/api/api';
 
 // Use `contextBridge` APIs to expose Electron APIs to
 // renderer only if context isolation is enabled, otherwise

@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { i_appConfig_renderer } from 'src/types/i_appConfig_renderer';
+import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 
 class T_AppConfigStore {
 	count: number = 0;

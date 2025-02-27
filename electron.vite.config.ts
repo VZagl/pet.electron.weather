@@ -63,6 +63,7 @@ export default defineConfig({
 			alias: {
 				'~': path.resolve(__dirname, 'src/main'),
 				'~src': path.resolve(__dirname, 'src'),
+				'~main': path.resolve(__dirname, 'src/renderer/windows/main'),
 				'~types': path.resolve(__dirname, 'src/types'),
 			},
 		},
@@ -77,6 +78,14 @@ export default defineConfig({
 						fileURLToPath(new URL(file, import.meta.url)),
 					])
 				),
+			},
+		},
+		resolve: {
+			alias: {
+				'~': path.resolve(__dirname, 'src/preload'),
+				'~src': path.resolve(__dirname, 'src'),
+				'~main': path.resolve(__dirname, 'src/renderer/windows/main'),
+				'~types': path.resolve(__dirname, 'src/types'),
 			},
 		},
 	},
@@ -106,6 +115,7 @@ export default defineConfig({
 			alias: {
 				'~': path.resolve(__dirname, 'src/renderer'),
 				'~src': path.resolve(__dirname, 'src'),
+				'~main': path.resolve(__dirname, 'src/renderer/windows/main'),
 				'~types': path.resolve(__dirname, 'src/types'),
 			},
 		},

@@ -14,7 +14,8 @@
 		"paths": {
 			"~/*": ["src/main/*"],
 			"~src/*": ["src/*"],
-			"~types/*": ["src/types/*"]
+			"~types/*": ["src/types/*"],
+			"~main/*": ["src/renderer/windows/main/*"]
 		}
 	}
 }

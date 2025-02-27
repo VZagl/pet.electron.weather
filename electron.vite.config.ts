@@ -5,53 +5,59 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 /**
- * Configuration for Vite in an Electron project.
+ * Конфигурация для Vite в проекте Electron.
  *
- * This configuration is divided into three main parts: `main`, `preload`, and `renderer`.
+ * Эта конфигурация разделена на три основные части: `main`, `preload` и `renderer`.
  *
  * @module electron.vite.config
  */
 
 /**
- * Main process configuration.
+ * Конфигурация для основного процесса.
  *
- * @property {Object} main - Configuration for the main process.
- * @property {Array} main.plugins - Plugins used in the main process. The `externalizeDepsPlugin` is used only in production to simplify the build process and reduce load during development.
- * @property {Object} main.resolve - Module resolution options.
- * @property {Object} main.resolve.alias - Aliases for module paths.
- * @property {string} main.resolve.alias['~'] - Alias for 'src/main' directory.
- * @property {string} main.resolve.alias['~src'] - Alias for 'src' directory.
- * @property {string} main.resolve.alias['~types'] - Alias for 'src/types' directory.
+ * @property {Object} main - Конфигурация для основного процесса.
+ * @property {Array} main.plugins - Плагины, используемые в основном процессе. Плагин `externalizeDepsPlugin` используется только в продакшн-среде для упрощения процесса сборки и снижения нагрузки в режиме разработки.
+ * @property {Object} main.resolve - Опции разрешения модулей.
+ * @property {Object} main.resolve.alias - Псевдонимы для путей модулей.
+ * @property {string} main.resolve.alias['~'] - Псевдоним для директории 'src/main'.
+ * @property {string} main.resolve.alias['~src'] - Псевдоним для директории 'src'.
+ * @property {string} main.resolve.alias['~types'] - Псевдоним для директории 'src/types'.
  */
 
 /**
- * Preload script configuration.
+ * Конфигурация для скриптов preload.
  *
- * @property {Object} preload - Configuration for the preload scripts.
- * @property {Array} preload.plugins - Plugins used in the preload scripts. The `externalizeDepsPlugin` is used only in production.
- * @property {Object} preload.build - Build options for the preload scripts.
- * @property {Object} preload.build.rollupOptions - Rollup options for the preload scripts.
- * @property {Object} preload.build.rollupOptions.input - Input files for the preload scripts, generated from `src/preload/*Preload.ts`.
+ * @property {Object} preload - Конфигурация для скриптов preload.
+ * @property {Array} preload.plugins - Плагины, используемые в скриптах preload. Плагин `externalizeDepsPlugin` используется только в продакшн-среде.
+ * @property {Object} preload.build - Опции сборки для скриптов preload.
+ * @property {Object} preload.build.rollupOptions - Опции Rollup для скриптов preload.
+ * @property {Object} preload.build.rollupOptions.input - Входные файлы для скриптов preload, генерируемые из `src/preload/*Preload.ts`.
+ * @property {Object} preload.resolve - Опции разрешения модулей.
+ * @property {Object} preload.resolve.alias - Псевдонимы для путей модулей.
+ * @property {string} preload.resolve.alias['~'] - Псевдоним для директории 'src/preload'.
+ * @property {string} preload.resolve.alias['~src'] - Псевдоним для директории 'src'.
+ * @property {string} preload.resolve.alias['~types'] - Псевдоним для директории 'src/types'.
  */
 
 /**
- * Renderer process configuration.
+ * Конфигурация для процесса renderer.
  *
- * @property {Object} renderer - Configuration for the renderer process.
- * @property {Array} renderer.plugins - Plugins used in the renderer process. The `react` plugin is used.
- * @property {Object} renderer.build - Build options for the renderer process.
- * @property {Object} renderer.build.rollupOptions - Rollup options for the renderer process.
- * @property {Object} renderer.build.rollupOptions.input - Input files for the renderer process, generated from `src/renderer/*.html`.
- * @property {Object} renderer.resolve - Module resolution options.
- * @property {Object} renderer.resolve.alias - Aliases for module paths.
- * @property {string} renderer.resolve.alias['~'] - Alias for 'src/renderer' directory.
- * @property {string} renderer.resolve.alias['~src'] - Alias for 'src' directory.
- * @property {string} renderer.resolve.alias['~types'] - Alias for 'src/types' directory.
- * @property {Object} renderer.css - CSS options for the renderer process.
- * @property {Object} renderer.css.preprocessorOptions - Preprocessor options for CSS.
- * @property {Object} renderer.css.preprocessorOptions.scss - SCSS preprocessor options.
- * @property {string} renderer.css.preprocessorOptions.scss.api - SCSS API version, set to 'modern-compiler'.
+ * @property {Object} renderer - Конфигурация для процесса renderer.
+ * @property {Array} renderer.plugins - Плагины, используемые в процессе renderer. Используется плагин `react`.
+ * @property {Object} renderer.build - Опции сборки для процесса renderer.
+ * @property {Object} renderer.build.rollupOptions - Опции Rollup для процесса renderer.
+ * @property {Object} renderer.build.rollupOptions.input - Входные файлы для процесса renderer, генерируемые из `src/renderer/*.html`.
+ * @property {Object} renderer.resolve - Опции разрешения модулей.
+ * @property {Object} renderer.resolve.alias - Псевдонимы для путей модулей.
+ * @property {string} renderer.resolve.alias['~'] - Псевдоним для директории 'src/renderer'.
+ * @property {string} renderer.resolve.alias['~src'] - Псевдоним для директории 'src'.
+ * @property {string} renderer.resolve.alias['~types'] - Псевдоним для директории 'src/types'.
+ * @property {Object} renderer.css - Опции CSS для процесса renderer.
+ * @property {Object} renderer.css.preprocessorOptions - Опции препроцессора для CSS.
+ * @property {Object} renderer.css.preprocessorOptions.scss - Опции препроцессора SCSS.
+ * @property {string} renderer.css.preprocessorOptions.scss.api - Версия API SCSS, установлена на 'modern-compiler'.
  */
+
 export default defineConfig({
 	main: {
 		/* Условное использование плагина:

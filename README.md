@@ -1,5 +1,16 @@
 # pet.electron.weather
 
+## Критически важные особенности дерева каталогов и файлов проекта:
+
+- `src/renderer/*.html`
+  - содержатся `html`-файлы, являющиеся точками входа для отдельных окон. Компилируются в отдельные `React`-приложения.
+  - здесь не должно содержаться других `*.html`-файлов
+- `src/preload/*Preload.ts`
+  - содержатся `preload`-скрипты для отдельных окон
+  - здесь не должно содержаться других `*Preload.ts`-файлов
+
+<hr>
+
 An Electron application with React and TypeScript
 
 ## Recommended IDE Setup

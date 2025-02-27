@@ -1,9 +1,9 @@
-import { appConfig_Store } from '@/stores/AppConfigStore';
-import { mobxToJSON } from '@/utils/mobxToJSON';
 import { action, runInAction, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
 import { i_appConfig_renderer } from 'src/types/i_appConfig_renderer';
+import { appConfig_Store } from '~/stores/AppConfigStore';
+import { mobxToJSON } from '~/utils/mobxToJSON';
 
 export const Init = observer(() => {
 	const [loaded, setLoaded] = useState(false);

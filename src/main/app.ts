@@ -1,7 +1,7 @@
 import { ipcMain } from 'electron';
-import { i_appConfig } from '../types/i_appConfig';
-import { i_appConfig_renderer } from '../types/i_appConfig_renderer';
-import { e_api } from '../types/t_api';
+import { i_appConfig } from '~types/i_appConfig';
+import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
+import { e_api } from '~types/t_api';
 
 export const App = (props: { config: i_appConfig }) => {
 	//

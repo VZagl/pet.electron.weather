@@ -1,9 +1,9 @@
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
-import { App } from './app';
-import { t_configLoader } from './configLoader';
-import { createAppWindow } from './windows/AppWindow';
-import { createLoadingWindow } from './windows/LoadingWindow';
+import { App } from '~/app';
+import { t_configLoader } from '~/configLoader';
+import { createAppWindow } from '~/windows/AppWindow';
+import { createLoadingWindow } from '~/windows/LoadingWindow';
 
 const configLoader = new t_configLoader();
 console.log('[INFO] config = ', configLoader);

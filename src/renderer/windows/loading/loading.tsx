@@ -1,6 +1,6 @@
-import { ErrorBoundary } from '@/components/errorBoundary/ErrorBoundary';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ErrorBoundary } from '~/components/errorBoundary/ErrorBoundary';
 import './loading.scss';
 
 const Loading = () => {

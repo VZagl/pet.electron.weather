@@ -1,10 +1,10 @@
-import electronLogo from '@/assets/electron.svg';
-import { Versions } from '@/components/Versions';
-import { appConfig_Store } from '@/stores/AppConfigStore';
-import { mobxToJSON } from '@/utils/mobxToJSON';
 import { runInAction, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { JSX, useEffect } from 'react';
+import electronLogo from '~/assets/electron.svg';
+import { Versions } from '~/components/Versions';
+import { appConfig_Store } from '~/stores/AppConfigStore';
+import { mobxToJSON } from '~/utils/mobxToJSON';
 
 const App = observer((): JSX.Element => {
 	const store = appConfig_Store;

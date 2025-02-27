@@ -1,8 +1,8 @@
 /*
 	https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
 */
-import { ErrorMessage } from '@/components/errorMessage/ErrorMessage';
 import React from 'react';
+import { ErrorMessage } from '~/components/errorMessage/ErrorMessage';
 
 type ErrorBoundaryProps = {
 	children: React.ReactNode;

@@ -10,8 +10,9 @@ export function createLoadingWindow(): BrowserWindow {
 		alwaysOnTop: true,
 		transparent: true,
 		webPreferences: {
-			// preload: join(__dirname, '../preload/index.js'),
+			// preload: join(__dirname, '../preload/loadingPreload.js'),
 			sandbox: false,
+			contextIsolation: true,
 		},
 	});
 

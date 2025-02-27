@@ -14,6 +14,16 @@ export default defineConfig({
 	},
 	preload: {
 		plugins: process.env.NODE_ENV === 'production' ? [externalizeDepsPlugin()] : [],
+		build: {
+			rollupOptions: {
+				input: Object.fromEntries(
+					globSync('src/preload/*.ts').map((file) => [
+						path.basename(file, path.extname(file)),
+						fileURLToPath(new URL(file, import.meta.url)),
+					])
+				),
+			},
+		},
 	},
 	renderer: {
 		plugins: [react()],

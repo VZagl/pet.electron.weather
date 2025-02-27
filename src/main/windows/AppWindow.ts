@@ -17,8 +17,9 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 		// autoHideMenuBar: true,
 		...(platform.isLinux ? { icon } : {}),
 		webPreferences: {
-			preload: join(__dirname, '../preload/index.js'),
+			preload: join(__dirname, '../preload/appPreload.js'),
 			sandbox: false,
+			contextIsolation: true,
 			// ...(is.dev ? { contextIsolation: false } : {contextIsolation: true}),
 		},
 	});

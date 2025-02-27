@@ -5,6 +5,19 @@ import { i_appConfig_renderer } from '../types/i_appConfig_renderer';
 
 export const apiApp: i_apiApp = {
 	/** /
+   * https://www.electronjs.org/ru/docs/latest/tutorial/context-isolation#security-considerations
+   * так делать нельзя, т.к. это нарушает изоляцию контекста
+   * Просто включение contextIsolationи использование contextBridgeне означает автоматически, что все, что вы делаете, безопасно.
+   * Например, этот код небезопасен:
+   * ```js
+   *  contextBridge.exposeInMainWorld('myAPI', {
+   *    send: ipcRenderer.send
+   *  });
+   *  ```
+   * Это позволит злоумышленнику отправлять сообщения в основной процесс, что может привести к серьезным проблемам безопасности.
+   * Вместо этого вы должны использовать contextBridge.exposeInMainWorldдля предоставления доступа к API,
+   * которое вы контролируете, и не предоставлять доступ к API, которое может быть использовано для злоумышленных целей.
+   * /
 	ipcRenderer: {
 		sendMessage(channel: e_apiApp, ...args: unknown[]) {
 			ipcRenderer.send(channel, ...args);

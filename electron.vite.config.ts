@@ -17,7 +17,7 @@ export default defineConfig({
 		build: {
 			rollupOptions: {
 				input: Object.fromEntries(
-					globSync('src/preload/*.ts').map((file) => [
+					globSync('src/preload/*Preload.ts').map((file) => [
 						path.basename(file, path.extname(file)),
 						fileURLToPath(new URL(file, import.meta.url)),
 					])

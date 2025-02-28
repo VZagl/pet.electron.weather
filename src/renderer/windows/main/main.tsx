@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ErrorBoundary } from '~/components/errorBoundary/ErrorBoundary';
-import { App } from '~/features/App';
-import { Init } from '~/features/Init';
+import { App } from '~main/features/App';
+import { Init } from '~main/features/Init';
+import '~main/types/t_global.ts';
 import './main.scss';
-import './types/t_global.ts';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<>

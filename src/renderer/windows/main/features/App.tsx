@@ -1,10 +1,13 @@
-import { runInAction, toJS } from 'mobx';
+// import { runInAction, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { JSX, useEffect } from 'react';
-import electronLogo from '~/assets/electron.svg';
-import { Versions } from '~/components/Versions';
+// import electronLogo from '~/assets/electron.svg';
+// import { Versions } from '~/components/Versions';
 import { appConfig_Store } from '~/stores/AppConfigStore';
 import { mobxToJSON } from '~/utils/mobxToJSON';
+import { e_appState } from '~types/e_appState';
+import { History } from './History';
+import { WeatherForecast } from './WeatherForecast';
 
 const App = observer((): JSX.Element => {
 	const store = appConfig_Store;
@@ -17,17 +20,9 @@ const App = observer((): JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		console.log('#App.useEffect[store] = ', mobxToJSON(store));
-	}, [store]);
-
-	useEffect(() => {
-		console.log('#App.useEffect[store.count] = ', mobxToJSON(store.count));
-	}, [store.count]);
-
-	useEffect(() => {
 		console.log('#App.useEffect[store.config] config = ', mobxToJSON(store.config));
 	}, [store.config]);
-
+	/*
 	const ipcHandle_Ping = (): void => {
 		window.api.app.ping('ping - test data');
 		runInAction(() => {
@@ -36,11 +31,20 @@ const App = observer((): JSX.Element => {
 		});
 		console.log('#App.ipcHandle_Ping config = ', toJS(store));
 	};
+	*/
+	const renderContent = () => {
+		if (store.config?.lastState === e_appState.HISTORY) {
+			return <History />;
+		} else {
+			return <WeatherForecast />;
+		}
+	};
 
 	console.log('#App.render');
 	return (
 		<div id='app'>
-			<h1>Hello Vite + Electron + React + MobX!</h1>
+			{renderContent()}
+			{/* <h1>Hello Vite + Electron + React + MobX!</h1>
 			<img alt='logo' className='logo' src={electronLogo} />
 			<div className='creator'>Powered by electron-vite</div>
 			<div className='text'>
@@ -62,7 +66,7 @@ const App = observer((): JSX.Element => {
 					</a>
 				</div>
 			</div>
-			<Versions />
+			<Versions /> */}
 		</div>
 	);
 });

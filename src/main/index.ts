@@ -15,8 +15,8 @@ function loadConfigAndCreateMainWindow(loadingWindow: BrowserWindow): void {
 		.then(async (config) => {
 			console.log('[INFO] Конфигурация загружена:', config);
 			loadingWindow.webContents.send('loading-progress', 'Конфигурация загружена');
-			await createAppWindow();
-			App({ config });
+			const mainWindow = await createAppWindow();
+			App({ config, mainWindow });
 			loadingWindow.close();
 		})
 		.catch((error) => {

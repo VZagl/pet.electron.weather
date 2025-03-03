@@ -11,7 +11,7 @@ export interface i_apiApp {
 	};
   */
 	getWeather: (data: Object, callback: Function) => Object;
-	loadPreferences: () => Promise<i_appConfig_renderer>;
+	// loadPreferences: () => Promise<i_appConfig_renderer>;
 	savePreferences: (config: i_appConfig_renderer) => void;
 	ping: (data: any) => void;
 }

@@ -32,6 +32,7 @@ export const Init = observer(() => {
 	useEffect(() => {
 		console.log('#Init.useEffect.loadPreferences');
 
+		/*
 		window.api.app
 			.loadPreferences()
 			.then((result: i_appConfig_renderer) => {
@@ -42,7 +43,14 @@ export const Init = observer(() => {
 			.catch((reason) => {
 				console.log('#Init.useEffect.loadPreferences.catch(reason) =', reason);
 			});
+		*/
 		window.addEventListener('beforeunload', handleBeforeUnload);
+
+		window.electron.ipcRenderer.on('config-loaded', (_event, config: i_appConfig_renderer) => {
+			console.log('#Init.useEffect.config-loaded', config);
+			updateConfig(config);
+			if (!loaded) setLoaded(true);
+		});
 
 		return () => {
 			window.removeEventListener('beforeunload', handleBeforeUnload);

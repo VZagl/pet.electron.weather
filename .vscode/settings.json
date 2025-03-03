@@ -12,51 +12,34 @@
 	// region: костыль для Copilot
 	// это костыль для того, чтобы Copilot не использовал 100% CPU.
 	"terminal.integrated.gpuAcceleration": "off",
+
+	// в окне вывода для TypeScript будут отображаться ошибки и пути к файлам логов
+	"typescript.tsserver.log": "verbose",
+	"typescript.tsserver.enableTracing": true,
+
 	"files.exclude": {
 		"**/.terragrunt-cache": true,
 		"**/.cache": true,
-		"**/node_modules": true
+		"**/node_modules": true,
+		"**/vscode-chat-code-block": true // Добавлено исключение для временных файлов
 	},
 	"search.followSymlinks": false,
-	// "github.copilot.advanced": {
-	// 	"files.exclude": {
-	// 		"**/.terragrunt-cache": true,
-	// 		"**/.cache": true,
-	// 		"**/node_modules": true,
-	// 		"**/dist": true,
-	// 		"**/out": true,
-	// 		"**/.qodo": true,
-	// 		"**/build": true
-	// 	}
-	// }
 	"github.copilot.advanced": {
 		"ignoredFiles": {
 			"/node_modules/": true,
 			"/dist/": true,
 			"/build/": true,
 			"/out/": true,
-			"/*.min.js": true
+			"/*.min.js": true,
+			"**/vscode-chat-code-block": true
 		},
 		"ignoredFolders": {
 			"/node_modules": true,
 			"/dist": true,
 			"/build": true,
-			"/out/": true
-		},
-		"ignoredFilesGlob": ["/node_modules/", "/dist/", "/build/", "/out/", "/*.min.js"],
-		"ignoredFoldersGlob": ["/node_modules", "/dist", "/build", "/out/"],
-		"ignoredFilesRegex": ["node_modules", "dist", "build", "/out/", ".min.js"],
-		"ignoredFoldersRegex": ["node_modules", "dist", "build", "/out/"],
-		"ignoredFilesGlobRegex": ["node_modules", "dist", "build", "/out/", ".min.js"],
-		"ignoredFoldersGlobRegex": ["node_modules", "dist", "build", "/out/"],
-		"ignoredFilesGlobRegexArray": ["node_modules", "dist", "build", "/out/", ".min.js"],
-		"ignoredFoldersGlobRegexArray": ["node_modules", "dist", "build", "/out/"],
-		"ignoredFilesArray": ["/node_modules/", "/dist/", "/build/", "/out/", "/*.min.js"],
-		"ignoredFoldersArray": ["/node_modules", "/dist", "/build", "/out/"],
-		"ignoredFilesGlobArray": ["/node_modules/", "/dist/", "/build/", "/out/", "/*.min.js"],
-		"ignoredFoldersGlobArray": ["/node_modules", "/dist", "/build", "/out/"],
-		"ignoredFilesRegexArray": ["node_modules", "dist", "build", "/out/", ".min.js"],
-		"ignoredFoldersRegexArray": ["node_modules", "dist", "build", "/out/"]
+			"/out": true,
+			"**/vscode-chat-code-block": true
+		}
 	}
 	// endregion: костыль для Copilot
 }

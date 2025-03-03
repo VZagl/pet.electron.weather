@@ -5,6 +5,7 @@
 		"src/renderer/**/*",
 		"src/renderer/**/*.tsx",
 		"src/types/**/*",
+		"src/utils/**/*",
 		"src/api/**/*"
 	],
 	"compilerOptions": {

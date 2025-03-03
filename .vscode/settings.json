@@ -11,6 +11,7 @@
 
 	// region: костыль для Copilot
 	// это костыль для того, чтобы Copilot не использовал 100% CPU.
+	"terminal.integrated.gpuAcceleration": "off",
 	"files.exclude": {
 		"**/.terragrunt-cache": true,
 		"**/.cache": true,
@@ -56,7 +57,6 @@
 		"ignoredFoldersGlobArray": ["/node_modules", "/dist", "/build", "/out/"],
 		"ignoredFilesRegexArray": ["node_modules", "dist", "build", "/out/", ".min.js"],
 		"ignoredFoldersRegexArray": ["node_modules", "dist", "build", "/out/"]
-	},
-	"CodeGPT.apiKey": "Ollama"
+	}
 	// endregion: костыль для Copilot
 }

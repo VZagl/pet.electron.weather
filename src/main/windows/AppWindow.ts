@@ -6,7 +6,7 @@ import { e_api } from '~types/t_api';
 import icon from '/resources/icon.png?asset';
 
 export async function createAppWindow(): Promise<BrowserWindow> {
-	console.log('#app.createAppWindow');
+	console.log('#AppWindow.createAppWindow');
 	await installExtensions();
 
 	// Create the main window.
@@ -24,28 +24,64 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 		},
 	});
 
+	/**
+	 * Перехватывает попытки открытия новых окон из веб-контента (например, через window.open()).
+	 *
+	 * @param details Объект, содержащий информацию о запросе на открытие нового окна.
+	 *                Включает URL, который пытаются открыть.
+	 *
+	 * @remarks
+	 * Эта функция переопределяет стандартное поведение Electron при открытии новых окон из веб-контента.
+	 * В данном случае, вместо открытия нового окна Electron, она открывает URL во внешней программе,
+	 * установленной по умолчанию для обработки таких URL (например, в браузере пользователя).
+	 *
+	 * `shell.openExternal(details.url)`:  Открывает URL во внешней программе.
+	 * `return { action: 'deny' }`:  Запрещает Electron открывать новое окно. Это важно, чтобы управление открытием URL полностью перешло к внешней программе.
+	 */
 	mainWindow.webContents.setWindowOpenHandler((details) => {
+		console.log('#AppWindow/mainWindow.webContents.setWindowOpenHandler', details);
 		shell.openExternal(details.url);
 		return { action: 'deny' };
 	});
 
+	/**
+	 * Обработчик события 'ready-to-show', которое вызывается, когда окно готово к отображению.
+	 *
+	 * @remarks
+	 * Этот обработчик выполняет следующие действия:
+	 * 1. Скрывает кнопки управления окном (traffic light buttons) в macOS, если приложение запущено на macOS.
+	 *    `mainWindow.setWindowButtonVisibility(false)`: Скрывает кнопки управления окном.
+	 * 2. Отображает главное окно приложения.
+	 *    `mainWindow.show()`: Делает окно видимым.
+	 */
 	mainWindow.on('ready-to-show', () => {
-		console.log('#app/mainWindow.on(ready-to-show)');
+		console.log('#AppWindow/mainWindow.on(ready-to-show)');
 		// Not show the traffic light buttons in MacOS
 		if (platform.isMacOS) mainWindow.setWindowButtonVisibility(false);
 		mainWindow.show();
 	});
 
+	/**
+	 * Обработчик события 'dom-ready', которое вызывается, когда DOM (Document Object Model)
+	 * веб-страницы полностью загружен и готов к взаимодействию.
+	 *
+	 * @remarks
+	 * Этот обработчик выполняет следующие действия:
+	 * 1. Проверяет, находится ли приложение в режиме разработки (`is.dev`).
+	 *    Если приложение не в режиме разработки, функция завершается (`return;`).
+	 * 2. Открывает инструменты разработчика Chrome DevTools в нижней части окна.
+	 *    `mainWindow.webContents.openDevTools({ mode: 'bottom' });`: Открывает DevTools.
+	 */
 	mainWindow.webContents.on('dom-ready', () => {
 		if (!is.dev) return;
-		console.log('#app/mainWindow.webContents.on(dom-ready)');
+		console.log('#AppWindow/mainWindow.webContents.on(dom-ready)');
 		// win.webContents.openDevTools();
 		mainWindow.webContents.openDevTools({ mode: 'bottom' });
 		// createView(win, url);
 	});
 
 	mainWindow.on(e_api.win.close, () => {
-		console.log(`#app/mainWindow.on( ${e_api.win.close} )`);
+		console.log(`#AppWindow/mainWindow.on( ${e_api.win.close} )`);
 		// const views = win.getBrowserViews();
 		// views.forEach((v) => win.removeBrowserView(v));
 	});

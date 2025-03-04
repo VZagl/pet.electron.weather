@@ -3,12 +3,14 @@ import path from 'path';
 // import { join } from 'path/posix';
 
 export function createLoadingWindow(): BrowserWindow {
+	console.log('#LoadingWindow.createLoadingWindow');
+
 	const loadingWindow = new BrowserWindow({
 		width: 400,
 		height: 300,
 		frame: false,
-		alwaysOnTop: true,
-		transparent: true,
+		// alwaysOnTop: true,
+		// transparent: true,
 		webPreferences: {
 			// preload: join(__dirname, '../preload/loadingPreload.js'),
 			sandbox: false,

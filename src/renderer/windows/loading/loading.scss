@@ -1,38 +1,29 @@
-@use '~/assets/base.scss';
+@forward '~/assets/index.scss';
 
 body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 0;
-	background-color: var(--color-background);
-	height: 100vh;
-	color: var(--color-text);
-	font-family:
-		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-.loading-container {
+.loading {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-}
 
-.spinner {
-	animation: spin 2s linear infinite;
-	border: 16px solid #f3f3f3; /* Light grey */
-	border-top: 16px solid var(--color-text); /* Blue */
-	border-radius: 50%;
-	width: 120px;
-	height: 120px;
-}
-
-@keyframes spin {
-	0% {
-		transform: rotate(0deg);
+	.spinner {
+		width: 120px;
+		height: 120px;
 	}
-	100% {
-		transform: rotate(360deg);
+
+	h1 {
+		background-color: var(--color-background-soft);
+		padding: 10px;
+
+		.version {
+			color: var(--ev-c-text-2);
+		}
 	}
 }

@@ -47,6 +47,7 @@ export const apiApp: i_apiApp = {
 		}
 	},
 
+	/*
 	// демо из https://www.electronjs.org/ru/docs/latest/tutorial/context-isolation#usage-with-typescript
 	loadPreferences: async () => {
 		console.log('#preload/index#api.loadPreferences... start');
@@ -54,6 +55,7 @@ export const apiApp: i_apiApp = {
 		console.log('#preload/index#api.loadPreferences result =', result);
 		return result;
 	},
+	*/
 
 	savePreferences: function (config: i_appConfig_renderer): void {
 		ipcRenderer.send(e_apiApp.savePrefs, config);

@@ -2,8 +2,8 @@ import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
 import { App } from '~/app';
 import { t_configLoader } from '~/configLoader';
-import { createAppWindow } from '~/windows/AppWindow';
 import { createLoadingWindow } from '~/windows/LoadingWindow';
+import { createMainWindow } from '~/windows/MainWindow';
 
 const configLoader = new t_configLoader();
 console.log('[INFO] config = ', configLoader);
@@ -15,7 +15,7 @@ function loadConfigAndCreateMainWindow(loadingWindow: BrowserWindow): void {
 		.then(async (config) => {
 			console.log('[INFO] Конфигурация загружена:', config);
 			loadingWindow.webContents.send('loading-progress', 'Конфигурация загружена');
-			const mainWindow = await createAppWindow();
+			const mainWindow = await createMainWindow();
 			App({ config, mainWindow });
 			loadingWindow.close();
 		})
@@ -47,7 +47,7 @@ app.whenReady().then(() => {
 	app.on('activate', function () {
 		// On macOS it's common to re-create a window in the app when the
 		// dock icon is clicked and there are no other windows open.
-		if (BrowserWindow.getAllWindows().length === 0) createAppWindow();
+		if (BrowserWindow.getAllWindows().length === 0) createMainWindow();
 	});
 });
 

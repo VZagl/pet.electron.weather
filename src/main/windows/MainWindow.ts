@@ -5,8 +5,8 @@ import { installExtensions } from '~/installExtensions';
 import { e_api } from '~types/t_api';
 import icon from '/resources/icon.png?asset';
 
-export async function createAppWindow(): Promise<BrowserWindow> {
-	console.log('#AppWindow.createAppWindow');
+export async function createMainWindow(): Promise<BrowserWindow> {
+	console.log('#MainWindow.createMainWindow');
 	await installExtensions();
 
 	// Create the main window.
@@ -17,7 +17,7 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 		// autoHideMenuBar: true,
 		...(platform.isLinux ? { icon } : {}),
 		webPreferences: {
-			preload: join(__dirname, '../preload/appPreload.js'),
+			preload: join(__dirname, '../preload/mainPreload.js'),
 			sandbox: false,
 			contextIsolation: true,
 			// ...(is.dev ? { contextIsolation: false } : {contextIsolation: true}),
@@ -39,7 +39,7 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 	 * `return { action: 'deny' }`:  Запрещает Electron открывать новое окно. Это важно, чтобы управление открытием URL полностью перешло к внешней программе.
 	 */
 	mainWindow.webContents.setWindowOpenHandler((details) => {
-		console.log('#AppWindow/mainWindow.webContents.setWindowOpenHandler', details);
+		console.log('#MainWindow/mainWindow.webContents.setWindowOpenHandler', details);
 		shell.openExternal(details.url);
 		return { action: 'deny' };
 	});
@@ -55,7 +55,7 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 	 *    `mainWindow.show()`: Делает окно видимым.
 	 */
 	mainWindow.on('ready-to-show', () => {
-		console.log('#AppWindow/mainWindow.on(ready-to-show)');
+		console.log('#MainWindow/mainWindow.on(ready-to-show)');
 		// Not show the traffic light buttons in MacOS
 		if (platform.isMacOS) mainWindow.setWindowButtonVisibility(false);
 		mainWindow.show();
@@ -74,14 +74,14 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 	 */
 	mainWindow.webContents.on('dom-ready', () => {
 		if (!is.dev) return;
-		console.log('#AppWindow/mainWindow.webContents.on(dom-ready)');
+		console.log('#MainWindow/mainWindow.webContents.on(dom-ready)');
 		// win.webContents.openDevTools();
 		mainWindow.webContents.openDevTools({ mode: 'bottom' });
 		// createView(win, url);
 	});
 
 	mainWindow.on(e_api.win.close, () => {
-		console.log(`#AppWindow/mainWindow.on( ${e_api.win.close} )`);
+		console.log(`#MainWindow/mainWindow.on( ${e_api.win.close} )`);
 		// const views = win.getBrowserViews();
 		// views.forEach((v) => win.removeBrowserView(v));
 	});
@@ -89,9 +89,9 @@ export async function createAppWindow(): Promise<BrowserWindow> {
 	// HMR for renderer base on electron-vite cli.
 	// Load the remote URL for development or the local html file for production.
 	if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-		mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/index.html');
+		mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/main.html');
 	} else {
-		mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
+		mainWindow.loadFile(path.join(__dirname, '../renderer/main.html'));
 	}
 
 	return mainWindow;

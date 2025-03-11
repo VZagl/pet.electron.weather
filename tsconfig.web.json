@@ -3,7 +3,7 @@
 	"include": [
 		"src/renderer/env.d.ts",
 		"src/renderer/**/*",
-		"src/renderer/**/*.tsx",
+		// "src/renderer/**/*.tsx",
 		"src/types/**/*",
 		"src/utils/**/*",
 		"src/api/**/*"

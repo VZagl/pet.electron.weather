@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
  */
 
 /**
- * Конфигурация для основного процесса.
+ * Конфигурация для основного процесса `main`.
  *
  * @property {Object} main - Конфигурация для основного процесса.
  * @property {Array} main.plugins - Плагины, используемые в основном процессе. Плагин `externalizeDepsPlugin` используется только в продакшн-среде для упрощения процесса сборки и снижения нагрузки в режиме разработки.
@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url';
  */
 
 /**
- * Конфигурация для скриптов preload.
+ * Конфигурация для скриптов `preload`.
  *
  * @property {Object} preload - Конфигурация для скриптов preload.
  * @property {Array} preload.plugins - Плагины, используемые в скриптах preload. Плагин `externalizeDepsPlugin` используется только в продакшн-среде.
@@ -40,7 +40,7 @@ import { fileURLToPath } from 'node:url';
  */
 
 /**
- * Конфигурация для процесса renderer.
+ * Конфигурация для процесса `renderer`.
  *
  * @property {Object} renderer - Конфигурация для процесса renderer.
  * @property {Array} renderer.plugins - Плагины, используемые в процессе renderer. Используется плагин `react`.
@@ -105,8 +105,7 @@ export default defineConfig({
 						main: resolve(__dirname, 'src/renderer/index.html'),
 						loading: resolve(__dirname, 'src/renderer/loading.html'),
 					},
-				  /**/
-					/**/
+				/**/
 					Object.fromEntries(
 						globSync('src/renderer/*.html').map((file) => [
 							// path.relative('src/renderer', file.slice(0, file.length - path.extname(file).length)),

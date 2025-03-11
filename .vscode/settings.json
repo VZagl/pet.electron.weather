@@ -14,8 +14,8 @@
 	"terminal.integrated.gpuAcceleration": "off",
 
 	// в окне вывода для TypeScript будут отображаться ошибки и пути к файлам логов
-	"typescript.tsserver.log": "verbose",
-	"typescript.tsserver.enableTracing": true,
+	// "typescript.tsserver.log": "verbose",
+	// "typescript.tsserver.enableTracing": true,
 
 	"files.exclude": {
 		"**/.terragrunt-cache": true,

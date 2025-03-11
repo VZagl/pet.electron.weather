@@ -1,3 +1,4 @@
+import { is } from '@electron-toolkit/utils';
 import { BrowserWindow } from 'electron';
 import path from 'path';
 // import { join } from 'path/posix';
@@ -18,7 +19,12 @@ export function createLoadingWindow(): BrowserWindow {
 		},
 	});
 
-	loadingWindow.loadFile(path.join(__dirname, '../renderer/loading.html'));
+	// Load the remote URL for development or the local html file for production.
+	if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
+		loadingWindow.loadURL(process.env['ELECTRON_RENDERER_URL'] + '/loading.html');
+	} else {
+		loadingWindow.loadFile(path.join(__dirname, '../renderer/loading.html'));
+	}
 
 	return loadingWindow;
 }

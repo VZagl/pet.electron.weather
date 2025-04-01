@@ -1,7 +1,7 @@
 import { action, runInAction, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
-import { appConfig_Store } from '~/stores/AppConfigStore';
+import { appConfig_Store } from '~/stores/AppConfig_Store';
 import { mobxToJSON } from '~/utils/mobxToJSON';
 import { e_api } from '~src/types/t_api';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';

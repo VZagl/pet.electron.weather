@@ -3,16 +3,21 @@ import { i_appConfig } from '~types/i_appConfig';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 import { e_api } from '~types/t_api';
 
-export const App = (props: { config: i_appConfig; mainWindow: BrowserWindow }) => {
+type t_appProps = {
+	config: i_appConfig;
+	mainWindow: BrowserWindow;
+};
+
+export const App = (props: t_appProps) => {
 	/** /
 	ipcMain.handle(e_api.app.loadPrefs, async () => {
-		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.loadPrefs} )`);
+		console.log(`#app/ipcMain.handle( ${e_api.app.loadPrefs} )`);
 		const config = props.config.renderer;
 		return config;
 	});
 	/**/
 	ipcMain.on(e_api.app.savePrefs, (_event, config: i_appConfig_renderer) => {
-		console.log(`#app.createAppWindow/ipcMain.handle( ${e_api.app.savePrefs} ) config = `, config);
+		console.log(`#app/ipcMain.on( ${e_api.app.savePrefs} ) config = `, config);
 		props.config.renderer = config;
 	});
 

@@ -5,9 +5,9 @@ import { useAppConfig_Store } from '~/stores/AppConfig_StoreContext';
 import { AppConfig_StoreProvider } from '~/stores/AppConfig_StoreProvider';
 import { mobxToJSON } from '~/utils/mobxToJSON';
 import { e_appState } from '~types/e_appState';
+import { History } from '../History/History';
+import { WeatherForecast } from '../WeatherForecast/WeatherForecast';
 import './App.scss';
-import { History } from './History';
-import { WeatherForecast } from './WeatherForecast';
 
 const AppContent = observer((): JSX.Element => {
 	const appConfig_Store = useAppConfig_Store();

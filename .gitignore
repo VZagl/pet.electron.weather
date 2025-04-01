@@ -21,8 +21,14 @@ lerna-debug.log*
 # QODO AI assistant history
 .qodo
 
+# unused in project
+*.~
+
 #lockfile
 package-lock.json
 pnpm-lock.yaml
 yarn.lock
+
+#
 /config.json5
+README-2.md

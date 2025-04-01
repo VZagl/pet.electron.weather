@@ -3,12 +3,12 @@ import { i_appConfig } from '~types/i_appConfig';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 import { e_api } from '~types/t_api';
 
-type t_appProps = {
+type t_mainAppProps = {
 	config: i_appConfig;
 	mainWindow: BrowserWindow;
 };
 
-export const App = (props: t_appProps) => {
+export const MainApp = (props: t_mainAppProps) => {
 	/** /
 	ipcMain.handle(e_api.app.loadPrefs, async () => {
 		console.log(`#app/ipcMain.handle( ${e_api.app.loadPrefs} )`);

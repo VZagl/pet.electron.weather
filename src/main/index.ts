@@ -1,7 +1,7 @@
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
-import { App } from '~/app';
 import { t_configLoader } from '~/configLoader';
+import { MainApp } from '~/mainApp';
 import { createLoadingWindow } from '~/windows/LoadingWindow';
 import { createMainWindow } from '~/windows/MainWindow';
 
@@ -16,7 +16,7 @@ function loadConfigAndCreateMainWindow(loadingWindow: BrowserWindow): void {
 			console.log('[INFO] Конфигурация загружена:', config);
 			loadingWindow.webContents.send('loading-progress', 'Конфигурация загружена');
 			const mainWindow = await createMainWindow();
-			App({ config, mainWindow });
+			MainApp({ config, mainWindow });
 			loadingWindow.close();
 		})
 		.catch((error) => {

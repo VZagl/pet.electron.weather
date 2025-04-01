@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 
-class T_AppConfigStore {
+class t_appConfigStore {
 	// count: number = 0;
 	config: i_appConfig_renderer = {};
 
@@ -10,4 +10,4 @@ class T_AppConfigStore {
 	}
 }
 
-export const appConfig_Store = new T_AppConfigStore();
+export const appConfig_Store = new t_appConfigStore();

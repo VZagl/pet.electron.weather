@@ -36,8 +36,9 @@ const AppContent = observer((): JSX.Element => {
 
 	return renderContent();
 });
+AppContent.displayName = 'AppContent';
 
-const App = () => {
+export const App = () => {
 	console.log('#App.render');
 	return (
 		<AppConfig_StoreProvider>
@@ -47,7 +48,3 @@ const App = () => {
 		</AppConfig_StoreProvider>
 	);
 };
-
-App.displayName = 'App';
-
-export { App };

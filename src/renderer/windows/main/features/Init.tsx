@@ -59,3 +59,5 @@ export const Init = observer(() => {
 	console.log('#Init.render');
 	return '';
 });
+
+Init.displayName = 'Init';

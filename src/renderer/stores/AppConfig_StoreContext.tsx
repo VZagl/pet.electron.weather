@@ -6,7 +6,7 @@ export const AppConfig_StoreContext = createContext<typeof appConfig_Store | nul
 export const useAppConfig_Store = () => {
 	const store = useContext(AppConfig_StoreContext);
 	if (!store) {
-		throw new Error('useStore должен использоваться внутри StoreProvider');
+		throw new Error('useAppConfig_Store должен использоваться внутри StoreProvider');
 	}
 	return store;
 };

@@ -1,8 +1,9 @@
 import { observer } from 'mobx-react-lite';
+import { JSX } from 'react';
 import { useAppConfig_Store } from '~/stores/AppConfig_StoreContext';
 import './WeatherForecast.scss';
 
-export const WeatherForecast = observer(() => {
+export const WeatherForecast = observer((): JSX.Element => {
 	const store = useAppConfig_Store();
 
 	return (
@@ -16,3 +17,5 @@ export const WeatherForecast = observer(() => {
 		</div>
 	);
 });
+
+WeatherForecast.displayName = 'WeatherForecast';

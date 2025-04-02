@@ -28,6 +28,6 @@ export const MainApp = (props: t_mainAppProps) => {
 
 	// Send config to renderer process after AppWindow is loaded
 	props.mainWindow.webContents.on('did-finish-load', () => {
-		props.mainWindow.webContents.send('config-loaded', props.config.renderer);
+		props.mainWindow.webContents.send(e_api.app.configLoaded, props.config.renderer);
 	});
 };

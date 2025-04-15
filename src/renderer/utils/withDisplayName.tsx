@@ -15,7 +15,7 @@ import React from 'react';
  * console.log(NamedComponent.displayName); // "CustomName"
  * ```
  */
-export function withName<T extends React.ComponentType<any>>(name: string, Component: T): T {
+export function withDisplayName<T extends React.ComponentType<any>>(name: string, Component: T): T {
 	const WrappedComponent = (props: React.ComponentProps<T>) => <Component {...props} />;
 	WrappedComponent.displayName = name;
 	return WrappedComponent as T;

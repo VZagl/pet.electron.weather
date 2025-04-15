@@ -16,7 +16,7 @@ import React from 'react';
  * console.log(NamedComponent.displayName); // "CustomName"
  * ```
  */
-export function setName<T extends React.ComponentType<any>>(name: string, Component: T): T {
+export function setDisplayName<T extends React.ComponentType<any>>(name: string, Component: T): T {
 	Component.displayName = name;
 	return Component;
 }

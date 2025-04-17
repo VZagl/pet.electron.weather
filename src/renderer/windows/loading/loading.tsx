@@ -1,10 +1,14 @@
+'use strict';
+
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { ErrorBoundary } from '~/components/errorBoundary/ErrorBoundary';
 import packageJson from '../../../../package.json';
 import './loading.scss';
 
-const Loading = () => {
+interface LoadingProps {}
+
+const Loading: React.FC<LoadingProps> = () => {
 	return (
 		<div className='loading'>
 			<h1>{packageJson.name}</h1>
@@ -17,7 +21,13 @@ const Loading = () => {
 	);
 };
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const container = document.getElementById('root');
+if (!container) {
+	throw new Error('Failed to find root element');
+}
+
+const root = createRoot(container);
+root.render(
 	<React.StrictMode>
 		<ErrorBoundary>
 			<Loading />

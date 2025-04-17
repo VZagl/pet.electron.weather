@@ -1,3 +1,4 @@
+import { IpcRendererEvent } from 'electron';
 import { action, runInAction, toJS } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useEffect } from 'react';
@@ -6,29 +7,30 @@ import { mobxToJSON } from '~/utils/mobxToJSON';
 import { e_api } from '~src/types/t_api';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
 
+/**
+ * Компонент инициализации, отвечающий за загрузку и сохранение конфигурации.
+ * Использует MobX для управления состоянием и observer для отслеживания изменений.
+ */
 export const Init = observer(() => {
-	const handleBeforeUnload = () => {
+	/**
+	 * Обработчик события beforeunload.
+	 * Сохраняет текущую конфигурацию перед закрытием окна.
+	 */
+	const handleBeforeUnload = action(() => {
 		const newConfig = toJS(appConfig_Store.config);
 		console.log('#Init/handleBeforeUnload ', mobxToJSON(newConfig));
 		window.api.app.savePreferences(newConfig);
-	};
+	});
 
-	const handleOnConfigLoaded = (_event, config: i_appConfig_renderer) => {
+	/**
+	 * Обработчик загрузки конфигурации.
+	 * @param {Event} _event - Событие IPC
+	 * @param {i_appConfig_renderer} config - Загруженная конфигурация
+	 */
+	const handleOnConfigLoaded = action((_event: IpcRendererEvent, config: i_appConfig_renderer) => {
 		console.log('#Init/handleOnConfigLoaded', config);
-		updateConfig(config);
-	};
-
-	const updateConfig = action((newConfig: i_appConfig_renderer) => {
-		/*
-			`runInAction` в этом коде используется для выполнения изменений состояния в MobX в рамках действия.
-			В данном случае, он используется внутри функции `updateConfig`, чтобы обновить конфигурацию `appConfig_Store.config` новым значением `newConfig`.
-
-			`runInAction` гарантирует, что все изменения состояния, выполненные внутри его блока,
-			будут рассматриваться как одно действие. Это помогает MobX отслеживать изменения состояния и оптимизировать обновления наблюдателей.
-			В данном случае это означает, что обновление `appConfig_Store.config` будет выполнено атомарно и MobX сможет правильно обработать это изменение.
-		*/
 		runInAction(() => {
-			appConfig_Store.config = newConfig;
+			appConfig_Store.config = config;
 		});
 	});
 
@@ -36,15 +38,6 @@ export const Init = observer(() => {
 		console.log('#Init.useEffect.loadPreferences');
 
 		window.addEventListener('beforeunload', handleBeforeUnload);
-
-		/**
-		 * Регистрирует слушатель IPC для события `configLoaded` от основного процесса.
-		 *
-		 * @constant {Function} removeConfigLoadedListener - Функция для удаления зарегистрированного слушателя IPC.
-		 *
-		 * Слушатель срабатывает, когда основным процессом испускается событие `${e_api.app.configLoaded}`,
-		 * вызывая функцию обратного вызова `handleOnConfigLoaded`.
-		 */
 		const removeConfigLoadedListener = window.electron.ipcRenderer.on(
 			e_api.app.configLoaded,
 			handleOnConfigLoaded
@@ -57,7 +50,7 @@ export const Init = observer(() => {
 	}, []);
 
 	console.log('#Init.render');
-	return '';
+	return null;
 });
 
 Init.displayName = 'Init';

@@ -42,6 +42,8 @@
 		}
 	},
 	// endregion: костыль для Copilot
+	"github.copilot.chat.localeOverride": "ru",
+	"github.copilot.conversationLanguage": "ru",
 
 	"editor.guides.bracketPairs": true,
 	"indentRainbow.updateDelay": 100,

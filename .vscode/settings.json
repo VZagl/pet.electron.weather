@@ -1,4 +1,91 @@
 {
+	"editor": {
+		"codeActionsOnSave": {
+			"source.fixAll": "explicit",
+			"source.organizeImports": "explicit",
+			"source.sortMembers": "explicit"
+		},
+		"guides": {
+			"bracketPairs": true
+		},
+		"tabSize": 2,
+		"insertSpaces": false,
+		"inlineSuggest": {
+			"suppressSuggestions": true
+		},
+		"defaultFormatter": "esbenp.prettier-vscode",
+		"formatOnSave": true,
+		"tabCompletion": "on",
+		"linkedEditing": true,
+		"hover": {
+			"delay": 1000
+		}
+	},
+
+	"files": {
+		"exclude": {
+			"**/.terragrunt-cache": true,
+			"**/.cache": true,
+			"**/node_modules": true,
+			"**/vscode-chat-code-block": true
+		},
+		"eol": "\r\n",
+		"associations": {
+			"*.ts": "typescript"
+		}
+	},
+
+	"github": {
+		"copilot": {
+			"advanced": {
+				"ignoredFiles": {
+					"/node_modules/": true,
+					"/dist/": true,
+					"/build/": true,
+					"/out/": true,
+					"/*.min.js": true,
+					"**/vscode-chat-code-block": true
+				},
+				"ignoredFolders": {
+					"/node_modules": true,
+					"/dist": true,
+					"/build": true,
+					"/out": true,
+					"**/vscode-chat-code-block": true
+				},
+				"listCount": 3,
+				"debugOverrideEngine": "codegen",
+				"timeoutMs": 5000
+			},
+			"chat": {
+				"localeOverride": "ru",
+				"reviewSelection": {
+					"enabled": false
+				},
+				"commitMessageGeneration": {
+					"instructions": []
+				}
+			},
+			"enable": {
+				"*": true,
+				"plaintext": false,
+				"markdown": false,
+				"scminput": false,
+				"workspaceFolder": true
+			}
+		}
+	},
+
+	"indentRainbow": {
+		"updateDelay": 100,
+		"colors": [
+			"rgba(255, 255,  64, 0.05)",
+			"rgba(127, 255, 127, 0.05)",
+			"rgba(255, 127, 255, 0.05)",
+			"rgba( 79, 236, 236, 0.05)"
+		]
+	},
+
 	"[typescript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
@@ -8,55 +95,67 @@
 	"[json]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-
-	// region: костыль для Copilot
-	// это костыль для того, чтобы Copilot не использовал 100% CPU.
-	"terminal.integrated.gpuAcceleration": "off",
-
-	// в окне вывода для TypeScript будут отображаться ошибки и пути к файлам логов
-	// "typescript.tsserver.log": "verbose",
-	// "typescript.tsserver.enableTracing": true,
-
-	"files.exclude": {
-		"**/.terragrunt-cache": true,
-		"**/.cache": true,
-		"**/node_modules": true,
-		"**/vscode-chat-code-block": true // Добавлено исключение для временных файлов
+	"[scss]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"search.followSymlinks": false,
-	"github.copilot.advanced": {
-		"ignoredFiles": {
-			"/node_modules/": true,
-			"/dist/": true,
-			"/build/": true,
-			"/out/": true,
-			"/*.min.js": true,
-			"**/vscode-chat-code-block": true
-		},
-		"ignoredFolders": {
-			"/node_modules": true,
-			"/dist": true,
-			"/build": true,
-			"/out": true,
-			"**/vscode-chat-code-block": true
+	"[yaml]": {
+		"editor.defaultFormatter": "redhat.vscode-yaml"
+	},
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[bsl]": {
+		"editor.defaultFormatter": "1c-syntax.language-1c-bsl"
+	},
+
+	"search": {
+		"followSymlinks": false
+	},
+
+	"typescript": {
+		"experimental": {
+			"expandableHover": true
 		}
 	},
-	// endregion: костыль для Copilot
-	"github.copilot.chat.localeOverride": "ru",
-	"github.copilot.conversationLanguage": "ru",
 
-	"editor.guides.bracketPairs": true,
-	"indentRainbow.updateDelay": 100,
-	"indentRainbow.colors": [
-		/** /
-		"rgba(255, 127, 255, 0.05)",
-		"rgba(255, 255,   0, 0.05)"
-		/**/
-		/**/
-		"rgba(255, 255,  64, 0.05)",
-		"rgba(127, 255, 127, 0.05)",
-		"rgba(255, 127, 255, 0.05)",
-		"rgba( 79, 236, 236, 0.05)"
-		/**/
-	]
+	"html": {
+		"hover": {
+			"references": false,
+			"documentation": false
+		}
+	},
+
+	"emmet": {
+		"triggerExpansionOnTab": true
+	},
+
+	"prettier": {
+		"useTabs": true
+	},
+
+	"notebook": {
+		"defaultFormatter": "esbenp.prettier-vscode"
+	},
+
+	"markdown": {
+		"preview": {
+			"breaks": true, // Одиночные переносы строк отображаются как <br>
+			"typographer": true // Включает типографские улучшения текста
+		},
+		"extension.preview.autoShowPreviewToSide": true // Автоматически открывать предпросмотр Markdown сбоку
+	},
+
+	"[markdown]": {
+		// "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+		"editor.defaultFormatter": "esbenp.prettier-vscode", // Использует Prettier для форматирования Markdown файлов
+		"editor.formatOnSave": true, // Автоматическое форматирование при сохранении
+		"editor.wordWrap": "on", // Включает перенос строк для удобства чтения
+		"editor.renderWhitespace": "all", // Показывает символы пробелов и табуляции
+		"editor.quickSuggestions": {
+			// Настройки автодополнения
+			"comments": "on", // Включено в комментариях
+			"strings": "on", // Включено в строках
+			"other": "on" // Включено везде
+		}
+	}
 }

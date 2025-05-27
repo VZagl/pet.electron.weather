@@ -1,5 +1,5 @@
 import { ElectronAPI as i_electronAPI } from '@electron-toolkit/preload';
-import { deepFreeze } from '~src/utils/utils';
+import { deepFreeze } from '~src/utils/deepFreeze';
 import { e_actionsWin } from './e_actionsWin';
 import { e_apiApp } from './e_apiApp';
 import { i_apiApp } from './i_apiApp';

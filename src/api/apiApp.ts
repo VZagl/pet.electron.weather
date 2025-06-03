@@ -2,6 +2,11 @@ import { ipcRenderer } from 'electron';
 import { e_apiApp } from '~types/e_apiApp';
 import { i_apiApp } from '~types/i_apiApp';
 import { i_appConfig_renderer } from '~types/i_appConfig_renderer';
+import {
+	i_geocodingResult,
+	i_weatherForecast,
+	i_weatherLocation,
+} from '~types/weatherServiceTypes';
 
 export const apiApp: i_apiApp = {
 	/** /
@@ -36,15 +41,23 @@ export const apiApp: i_apiApp = {
 	},
 	/**/
 
-	getWeather: async (data, callback) => {
-		console.log('#preload/index#api.getWeather data=', data);
-		try {
-			const result = await ipcRenderer.invoke(e_apiApp.getWeather, data);
-			callback(result);
-		} catch (error) {
-			console.log('#preload/index#api.getWeather ERROR', error);
-			callback({});
-		}
+	// getWeather: async (data, callback) => {
+	// 	console.log('#preload/index#api.getWeather data=', data);
+	// 	try {
+	// 		const result = await ipcRenderer.invoke(e_apiApp.getWeather, data);
+	// 		callback(result);
+	// 	} catch (error) {
+	// 		console.log('#preload/index#api.getWeather ERROR', error);
+	// 		callback({});
+	// 	}
+	// },
+
+	getWeather: async (locations: i_weatherLocation[]): Promise<i_weatherForecast[]> => {
+		return await ipcRenderer.invoke(e_apiApp.getWeather, locations);
+	},
+
+	getGeocodeCity: async (cityName: string): Promise<i_geocodingResult[]> => {
+		return await ipcRenderer.invoke(e_apiApp.getGeocodeCity, cityName);
 	},
 
 	/*

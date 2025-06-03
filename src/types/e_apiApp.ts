@@ -5,5 +5,6 @@ export enum e_apiApp {
 	// loadPrefs = c_channelApp + 'load-prefs',
 	savePrefs = c_channelApp + 'save-prefs',
 	getWeather = c_channelApp + 'get-weather',
+	getGeocodeCity = c_channelApp + 'get-geocode-city',
 	ping = c_channelApp + 'ping',
 }

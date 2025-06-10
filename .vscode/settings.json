@@ -2,7 +2,7 @@
 	"editor": {
 		"codeActionsOnSave": {
 			"source.fixAll": "explicit",
-			"source.organizeImports": "explicit",
+			"source.organizeImports": "never",
 			"source.sortMembers": "explicit"
 		},
 		"guides": {
@@ -53,9 +53,10 @@
 					"/out": true,
 					"**/vscode-chat-code-block": true
 				},
-				"listCount": 3,
 				"debugOverrideEngine": "codegen",
-				"timeoutMs": 5000
+				"listCount": 5, // увеличьте для больше вариантов
+				"timeoutMs": 8000, // увеличьте таймаут для сложных запросов
+				"length": 500 // максимальная длина предложений
 			},
 			"chat": {
 				"localeOverride": "ru",
@@ -63,7 +64,11 @@
 					"enabled": false
 				},
 				"commitMessageGeneration": {
-					"instructions": []
+					"instructions": [
+						"Генерируй commit сообщения на русском языке",
+						"Используй формат: 'действие: описание'",
+						"Будь кратким но информативным"
+					]
 				}
 			},
 			"enable": {

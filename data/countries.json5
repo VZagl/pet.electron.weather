@@ -1,0 +1,16 @@
+// Основные страны с минимальными данными
+{
+	countries: [
+		{
+			code: 'UA',
+			name_key: 'country.ua',
+			timezone: 'Europe/Kiev',
+		},
+		{
+			code: 'US',
+			name_key: 'country.us',
+			timezone: 'America/New_York',
+		},
+		// ... другие страны
+	],
+}

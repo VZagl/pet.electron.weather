@@ -1,0 +1,20 @@
+{
+	// Страны
+	'country.ua': 'Украина',
+	'country.us': 'США',
+	'country.de': 'Германия',
+
+	// Города Украины
+	'city.ua.kiev': 'Киев',
+	'city.ua.kharkiv': 'Харьков',
+	'city.ua.odesa': 'Одесса',
+
+	// Города США
+	'city.us.new_york': 'Нью-Йорк',
+	'city.us.los_angeles': 'Лос-Анджелес',
+
+	// Интерфейс
+	'weather.temperature': 'Температура',
+	'weather.humidity': 'Влажность',
+	'weather.pressure': 'Давление',
+}

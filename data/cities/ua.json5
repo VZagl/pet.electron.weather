@@ -1,0 +1,26 @@
+// Города Украины
+{
+	country_code: 'UA',
+	cities: [
+		{
+			id: 'ua_kiev',
+			name_key: 'city.ua.kiev',
+			latitude: 50.4375,
+			longitude: 30.5,
+			elevation: 155.0,
+			timezone: 'Europe/Kiev',
+			population: 2884000,
+			is_capital: true,
+		},
+		{
+			id: 'ua_kharkiv',
+			name_key: 'city.ua.kharkiv',
+			latitude: 49.9935,
+			longitude: 36.2304,
+			elevation: 152.0,
+			timezone: 'Europe/Kiev',
+			population: 1421125,
+		},
+		// ... другие города
+	],
+}

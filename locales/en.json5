@@ -1,0 +1,16 @@
+{
+	'country.ua': 'Ukraine',
+	'country.us': 'United States',
+	'country.de': 'Germany',
+
+	'city.ua.kiev': 'Kyiv',
+	'city.ua.kharkiv': 'Kharkiv',
+	'city.ua.odesa': 'Odesa',
+
+	'city.us.new_york': 'New York',
+	'city.us.los_angeles': 'Los Angeles',
+
+	'weather.temperature': 'Temperature',
+	'weather.humidity': 'Humidity',
+	'weather.pressure': 'Pressure',
+}

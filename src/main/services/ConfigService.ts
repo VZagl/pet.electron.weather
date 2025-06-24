@@ -2,11 +2,11 @@ import * as fs from 'fs';
 import JSON5 from 'json5';
 import * as path from 'path';
 import { i_appConfig } from '~types/i_appConfig';
-import packageJson from '../../package.json';
+import packageJson from '../../../package.json';
 
 const pathDefault = path.resolve(process.cwd(), 'config.json5');
 
-export class t_configLoader {
+export class ConfigService {
 	private _config: i_appConfig;
 	private configFilePath: string;
 

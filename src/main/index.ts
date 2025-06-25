@@ -1,11 +1,11 @@
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import { app, BrowserWindow } from 'electron';
-import { t_configLoader } from '~/configLoader';
 import { MainApp } from '~/mainApp';
+import { ConfigService } from '~/services/ConfigService';
 import { createLoadingWindow } from '~/windows/LoadingWindow';
 import { createMainWindow } from '~/windows/MainWindow';
 
-const configLoader = new t_configLoader();
+const configLoader = new ConfigService();
 console.log('[INFO] config = ', configLoader);
 
 function loadConfigAndCreateMainWindow(loadingWindow: BrowserWindow): void {

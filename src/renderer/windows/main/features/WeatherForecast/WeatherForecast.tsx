@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useState } from 'react';
-import { TE_Weather_RequestState, useWeatherService } from '~/services/WeatherService';
+import { TE_Weather_RequestState, useWeatherService } from '~/services/WeatherServiceHook';
 import { useAppConfig_Store } from '~/stores/AppConfig_StoreContext';
 import './WeatherForecast.scss';
 

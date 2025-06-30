@@ -1,32 +1,24 @@
 // Типы для географических данных
+
+// Интерфейс для страны
 export interface i_country {
-	code: string; // ISO код страны (UA, US, DE)
+	id: string; // ISO код страны (UA, US, DE)
 	name_key: string; // Ключ для локализации названия
 	timezone: string; // Основная временная зона
-	currency?: string; // Валюта (опционально)
 }
 
+// Интерфейс для города
 export interface i_city {
 	id: string; // Уникальный ID города
-	country_code: string; // Код страны
+	id_country: string; // Код страны
 	name_key: string; // Ключ для локализации
-	latitude: number; // Широта
-	longitude: number; // Долгота
-	elevation: number; // Высота над уровнем моря
-	timezone: string; // Временная зона города
-	population?: number; // Население (опционально)
+	location: i_location;
 	is_capital?: boolean; // Столица ли
 }
 
-export interface i_cityInfo {
-	id: string; // ua.kiev
-	country_code: string; // ua
-	city_code: string; // kiev
-	name_key: string; // city.ua.kiev
-	latitude: number;
-	longitude: number;
-	elevation: number;
-	timezone: string;
-	population?: number;
-	is_capital?: boolean;
+export interface i_location {
+	latitude: number; // Широта
+	longitude: number; // Долгота
+	elevation?: number; // Высота над уровнем моря
+	timezone?: string; // Временная зона
 }

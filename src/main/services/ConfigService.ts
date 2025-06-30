@@ -13,7 +13,6 @@ export class ConfigService {
 	constructor(configFilePath: string = pathDefault) {
 		this.configFilePath = configFilePath;
 		this._config = { version: `${packageJson.version}` };
-		// this._config = this.loadConfig(configFilePath);
 	}
 
 	get config() {
@@ -32,24 +31,6 @@ export class ConfigService {
 		if (!this._config.renderer) this._config.renderer = {};
 		return this._config;
 	}
-
-	/*
-	private loadConfig(configFilePath: string): i_appConfig {
-		let config: i_appConfig;
-		try {
-			const fileContent = fs.readFileSync(configFilePath, 'utf-8');
-			config = JSON5.parse(fileContent); // as i_appConfig;
-		} catch (error) {
-			console.error(`[WARN] Failed to load configuration [${configFilePath}]`);
-			config = {
-				version: `${packageJson.version}`,
-			};
-		}
-		if (!config.main) config.main = {};
-		if (!config.renderer) config.renderer = {};
-		return config;
-	}
-  */
 
 	public saveConfig(configFilePath: string = pathDefault): void {
 		try {
@@ -71,7 +52,3 @@ export class ConfigService {
 		return this._config;
 	}
 }
-
-// Пример использования
-// const configLoader = new ConfigLoader();
-// const someValue = configLoader.get('someKey');

@@ -2,14 +2,14 @@
 {
 	countries: [
 		{
-			code: 'UA',
+			id: 'UA',
 			name_key: 'country.ua',
-			timezone: 'Europe/Kiev',
+			timezone: 'GMT+2',
 		},
 		{
-			code: 'US',
+			id: 'US',
 			name_key: 'country.us',
-			timezone: 'America/New_York',
+			timezone: 'GMT-5',
 		},
 		// ... другие страны
 	],

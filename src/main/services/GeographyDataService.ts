@@ -2,7 +2,7 @@ import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import * as path from 'path';
 import { i_city, i_country } from '~src/types/geography';
-import { i_appConfig_main } from '~src/types/i_appConfig_main';
+import { i_appConfig_main } from '~types/i_appConfig_main';
 
 /**
  * Сервис данных для управления географической информацией и локализацией
@@ -20,27 +20,30 @@ export class GeographyDataService {
 	// Путь к данным
 	private dataPath: string;
 
-	constructor(config: i_appConfig_main = {}) {
-		// Инициализация пути к данным
-		this.dataPath = config.dataPath || './data';
+	constructor(config: i_appConfig_main) {
+		// Обновлено: используем новую структуру config.data.path вместо config.dataPath
+		this.dataPath = config.data?.path || './data';
 	}
 
 	// Инициализация сервиса
 	public async initialize(): Promise<void> {
-		await this.initializeDirectories();
-
-		console.log(`GeographyDataService инициализирован:`);
-		console.log(`  Данные: ${this.dataPath}`);
-	}
-
-	// Инициализация директорий
-	private async initializeDirectories(): Promise<void> {
 		try {
-			await fs.mkdir(this.dataPath, { recursive: true });
-			await fs.mkdir(path.join(this.dataPath, 'cities'), { recursive: true });
-			await fs.mkdir(path.join(this.dataPath, 'locales'), { recursive: true });
+			console.log('🌍 Инициализация сервиса географических данных...');
+			console.log(`  Данные: ${this.dataPath}`);
+
+			// Создаем необходимые директории
+			try {
+				await fs.mkdir(this.dataPath, { recursive: true });
+				await fs.mkdir(path.join(this.dataPath, 'cities'), { recursive: true });
+				await fs.mkdir(path.join(this.dataPath, 'locales'), { recursive: true });
+			} catch (error) {
+				console.error('❌ Ошибка при создании директорий:', error);
+				throw error;
+			}
+
+			console.log('✅ Сервис географических данных инициализирован');
 		} catch (error) {
-			console.error('Ошибка инициализации директорий:', error);
+			console.error('❌ Ошибка инициализации сервиса географических данных:', error);
 			throw error;
 		}
 	}
@@ -103,6 +106,20 @@ export class GeographyDataService {
 			console.log(`Загружена локализация: ${locale}`);
 		} catch (error) {
 			console.error(`Ошибка загрузки локализации ${locale}:`, error);
+			throw error;
+		}
+	}
+
+	// Сохраняет локализацию
+	public async saveLocale(locale: string, data: any): Promise<void> {
+		try {
+			const filePath = path.join(this.dataPath, 'locales', `${locale}.json5`);
+			const content = JSON5.stringify(data, null, 2);
+			await fs.writeFile(filePath, content, 'utf-8');
+
+			console.log(`Сохранена локализация: ${locale}`);
+		} catch (error) {
+			console.error(`Ошибка сохранения локализации ${locale}:`, error);
 			throw error;
 		}
 	}

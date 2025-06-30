@@ -2,19 +2,58 @@ import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import * as path from 'path';
 
+/** Интерфейс сервиса кэширования
+ *
+ * @description Определяет контракт для работы с кэшем данных:
+ * - Инициализация и управление кэшем
+ * - Сохранение и загрузка данных
+ * - Проверка наличия и удаление записей
+ * - Получение статистики и очистка кэша
+ */
+export interface i_cacheService {
+	/** Инициализирует сервис кэширования */
+	initialize(): Promise<void>;
+
+	/** Очищает устаревший кэш */
+	cleanupExpiredCache(): Promise<void>;
+
+	/** Сохраняет данные в кэш по ключу */
+	saveToCache<T>(key: string, data: T): Promise<void>;
+
+	/** Загружает данные из кэша по ключу */
+	loadFromCache<T>(key: string): Promise<T | null>;
+
+	/** Проверяет наличие данных в кэше */
+	isCached(key: string): Promise<boolean>;
+
+	/** Удаляет данные из кэша по ключу */
+	removeFromCache(key: string): Promise<void>;
+
+	/** Получает информацию о состоянии кэша */
+	getCacheInfo(): Promise<{
+		totalFiles: number;
+		totalSizeMB: number;
+		oldestFile: Date | null;
+		newestFile: Date | null;
+	}>;
+
+	/** Полностью очищает весь кэш */
+	clearCache(): Promise<void>;
+}
+
 /** Интерфейс конфигурации сервиса кэширования
  *
  * @interface i_cacheConfig
- * @property {string} [cachePath] - Путь к директории кэша
- * @property {number} [cacheMaxSize] - Максимальный размер кэша в МБ
- * @property {number} [cacheRetentionDays] - Количество дней хранения кэша
- * @property {boolean} [cacheCleanupOnStart] - Флаг автоматической очистки при запуске
+ * @property {string} [path] - Путь к директории кэша
+ * @property {number} [maxSize] - Максимальный размер кэша в МБ
+ * @property {number} [retentionDays] - Количество дней хранения кэша
+ * @property {boolean} [cleanupOnStart] - Флаг автоматической очистки при запуске
  */
 export interface i_cacheConfig {
-	cachePath?: string;
-	cacheMaxSize?: number;
-	cacheRetentionDays?: number;
-	cacheCleanupOnStart?: boolean;
+	path?: string;
+	maxSize?: number;
+	retentionDays?: number;
+	cleanupOnStart?: boolean;
 }
 
 /** Сервис кэширования данных с поддержкой файлового хранения
@@ -26,8 +65,9 @@ export interface i_cacheConfig {
  * - Контроль размера и срока хранения кэша
  *
  * @class
+ * @implements {i_cacheService}
  */
-export class CacheService {
+export class CacheService implements i_cacheService {
 	// Путь к кэшу
 	private cachePath: string;
 
@@ -45,22 +85,22 @@ export class CacheService {
 	 * - Настраивает автоматическую очистку кэша при старте
 	 *
 	 * @param {i_cacheConfig} [options={}] - Объект конфигурации для настройки параметров кэша
-	 * @param {string} [options.cachePath='./cache'] - Путь к директории кэша
-	 * @param {number} [options.cacheMaxSize=100] - Максимальный размер кэша в МБ
-	 * @param {number} [options.cacheRetentionDays=30] - Количество дней хранения кэша
-	 * @param {boolean} [options.cacheCleanupOnStart=true] - Флаг автоматической очистки устаревшего кэша при запуске
+	 * @param {string} [options.path='./cache'] - Путь к директории кэша
+	 * @param {number} [options.maxSize=100] - Максимальный размер кэша в МБ
+	 * @param {number} [options.retentionDays=30] - Количество дней хранения кэша
+	 * @param {boolean} [options.cleanupOnStart=true] - Флаг автоматической очистки устаревшего кэша при запуске
 	 */
 	constructor({
-		cachePath = './cache', // Путь к кэшу (по умолчанию './cache')
-		cacheMaxSize = 100, // Максимальный размер кэша в МБ
-		cacheRetentionDays = 30, // Сколько дней хранить кэш
-		cacheCleanupOnStart = true, // Очищать устаревший кэш при запуске
+		path = './cache', // Путь к кэшу (по умолчанию './cache')
+		maxSize = 100, // Максимальный размер кэша в МБ
+		retentionDays = 30, // Сколько дней хранить кэш
+		cleanupOnStart = true, // Очищать устаревший кэш при запуске
 	}: i_cacheConfig = {}) {
 		// Инициализация настроек кэша
-		this.cachePath = cachePath;
-		this.cacheMaxSize = cacheMaxSize; // МБ
-		this.cacheRetentionDays = cacheRetentionDays;
-		this.cacheCleanupOnStart = cacheCleanupOnStart;
+		this.cachePath = path;
+		this.cacheMaxSize = maxSize; // МБ
+		this.cacheRetentionDays = retentionDays;
+		this.cacheCleanupOnStart = cleanupOnStart;
 	}
 
 	/** Инициализирует сервис кэширования

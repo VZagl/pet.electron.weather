@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs';
 import JSON5 from 'json5';
 import * as path from 'path';
-import { i_city, i_country } from '~src/types/geography';
+import { i_city, i_country } from '~types/geography';
 import { i_appConfig_main } from '~types/i_appConfig_main';
 
 /**
@@ -21,7 +21,6 @@ export class GeographyDataService {
 	private dataPath: string;
 
 	constructor(config: i_appConfig_main) {
-		// Обновлено: используем новую структуру config.data.path вместо config.dataPath
 		this.dataPath = config.data?.path || './data';
 	}
 
@@ -48,7 +47,12 @@ export class GeographyDataService {
 		}
 	}
 
-	// Загрузка основных данных стран
+	/** Загружает список стран из файла countries.json5
+	 * Кэширует загруженные страны в Map для предотвращения повторной загрузки
+	 *
+	 * @async
+	 * @throws {Error} В случае ошибки чтения или парсинга файла стран
+	 */
 	public async loadCountries(): Promise<void> {
 		if (this.countries.size > 0) return;
 
@@ -58,7 +62,7 @@ export class GeographyDataService {
 			const data = JSON5.parse(content);
 
 			data.countries.forEach((country: i_country) => {
-				this.countries.set(country.code, country);
+				this.countries.set(country.id, country);
 			});
 
 			console.log(`Загружено ${this.countries.size} стран из ${filePath}`);
@@ -68,30 +72,38 @@ export class GeographyDataService {
 		}
 	}
 
-	// Загрузка городов конкретной страны
-	public async loadCitiesByCountry(countryCode: string): Promise<void> {
+	/** Загружает города для указанной страны из JSON5-файла
+	 * Парсит файл городов, сохраняет города в кэш-карту this.cities
+	 *
+	 * @async
+	 * @param {string} idCountry - Идентификатор страны (в нижнем регистре)
+	 * @throws {Error} В случае ошибки чтения или парсинга файла городов
+	 */
+	public async loadCitiesByCountry(idCountry: string): Promise<void> {
 		try {
-			const filePath = path.join(this.dataPath, 'cities', `${countryCode.toLowerCase()}.json5`);
+			const filePath = path.join(this.dataPath, 'cities', `${idCountry.toLowerCase()}.json5`);
 			const content = await fs.readFile(filePath, 'utf-8');
 			const data = JSON5.parse(content);
 
-			data.cities.forEach((city: any) => {
-				const cityInfo: i_city = {
-					...city,
-					id: `${countryCode.toLowerCase()}.${city.city_code}`,
-					country_code: countryCode.toLowerCase(),
-				};
-				this.cities.set(cityInfo.id, cityInfo);
+			data.cities.forEach((city: i_city) => {
+				this.cities.set(city.id, city);
 			});
 
-			console.log(`Загружено ${data.cities.length} городов для ${countryCode}`);
+			console.log(`Загружено ${data.cities.length} городов для ${idCountry}`);
 		} catch (error) {
-			console.error(`Ошибка загрузки городов для ${countryCode}:`, error);
+			console.error(`Ошибка загрузки городов для ${idCountry}:`, error);
 			throw error;
 		}
 	}
 
-	// Загрузка локализации
+	/** Загружает локализацию для указанного языка из JSON5-файла
+	 * Кэширует загруженную локализацию в Map для предотвращения повторной загрузки
+	 * Загруженная локализация устанавливается как текущая локализация
+	 *
+	 * @async
+	 * @param {string} locale - Код языка локализации
+	 * @throws {Error} В случае ошибки чтения или парсинга файла локализации
+	 */
 	public async loadLocale(locale: string): Promise<void> {
 		if (this.locales.has(locale)) return;
 
@@ -110,7 +122,14 @@ export class GeographyDataService {
 		}
 	}
 
-	// Сохраняет локализацию
+	/** Сохраняет локализацию для указанного языка в JSON5-файл
+	 * Записывает переданные данные локализации в файл с использованием JSON5-формата
+	 *
+	 * @async
+	 * @param {string} locale - Код языка локализации
+	 * @param {any} data - Объект с переводами для сохранения
+	 * @throws {Error} В случае ошибки записи файла локализации
+	 */
 	public async saveLocale(locale: string, data: any): Promise<void> {
 		try {
 			const filePath = path.join(this.dataPath, 'locales', `${locale}.json5`);
@@ -124,7 +143,12 @@ export class GeographyDataService {
 		}
 	}
 
-	// Получение локализованного названия
+	/** Получает локализованное название по ключу с учетом текущей или указанной локали
+	 *
+	 * @param {string} key - Ключ для перевода
+	 * @param {string} [locale] - Код языка локализации (необязательный, по умолчанию используется текущая локаль)
+	 * @returns {string} Локализованное название или исходный ключ, если перевод не найден
+	 */
 	public getLocalizedName(key: string, locale?: string): string {
 		const targetLocale = locale || this.currentLocale;
 		const translations = this.locales.get(targetLocale);
@@ -132,12 +156,16 @@ export class GeographyDataService {
 		return translations?.[key] || key;
 	}
 
-	// Получение городов с локализованными названиями
-	public getLocalizedCities(countryCode?: string): Array<i_city & { localizedName: string }> {
+	/** Получает список городов с локализованными названиями, опционально отфильтрованных по стране
+	 *
+	 * @param {string} [idCountry] - Код страны для фильтрации городов (необязательный)
+	 * @returns {Array<i_city & { localizedName: string }>} Массив городов с добавленным локализованным названием
+	 */
+	public getLocalizedCities(idCountry?: string): Array<i_city & { localizedName: string }> {
 		let cities = Array.from(this.cities.values());
 
-		if (countryCode) {
-			cities = cities.filter((city) => city.country_code === countryCode.toLowerCase());
+		if (idCountry) {
+			cities = cities.filter((city) => city.id_country === idCountry.toLowerCase());
 		}
 
 		return cities.map((city) => ({
@@ -146,27 +174,46 @@ export class GeographyDataService {
 		}));
 	}
 
-	// Получение всех стран
+	/** Получает массив всех стран из внутреннего хранилища
+	 *
+	 * @returns {i_country[]} Массив объектов стран
+	 */
 	public getCountries(): i_country[] {
 		return Array.from(this.countries.values());
 	}
 
-	// Получение страны по коду
-	public getCountry(countryCode: string): i_country | undefined {
-		return this.countries.get(countryCode.toLowerCase());
+	/** Получает страну по её идентификатору
+	 *
+	 * @param {string} idCountry - Идентификатор страны (нечувствительный к регистру)
+	 * @returns {i_country | undefined} Объект страны или undefined, если страна не найдена
+	 */
+	public getCountry(idCountry: string): i_country | undefined {
+		return this.countries.get(idCountry.toLowerCase());
 	}
 
-	// Получение города по ID
-	public getCity(cityId: string): i_city | undefined {
-		return this.cities.get(cityId);
+	/** Получает город по его идентификатору
+	 *
+	 * @param {string} idCity - Идентификатор города
+	 * @returns {i_city | undefined} Объект города или undefined, если город не найден
+	 */
+	public getCity(idCity: string): i_city | undefined {
+		return this.cities.get(idCity);
 	}
 
-	// Получение текущей локали
+	/** Возвращает текущую установленную локаль
+	 *
+	 * @returns {string} Текущая локаль приложения
+	 */
 	public getCurrentLocale(): string {
 		return this.currentLocale;
 	}
 
-	// Установка текущей локали с автоматической загрузкой данных
+	/** Устанавливает текущую локаль приложения с автоматической загрузкой данных для указанной локали
+	 *
+	 * @param {string} locale - Код локали для установки
+	 * @throws {Error} Если не удается загрузить данные для указанной локали
+	 * @returns {Promise<void>} Промис, завершающийся после успешной смены локали
+	 */
 	public async setCurrentLocale(locale: string): Promise<void> {
 		try {
 			// Загружаем данные локализации для новой локали
@@ -182,7 +229,11 @@ export class GeographyDataService {
 		}
 	}
 
-	// Проверка доступности локали
+	/** Проверяет доступность локали по её идентификатору
+	 *
+	 * @param {string} locale - Код локали для проверки
+	 * @returns {Promise<boolean>} Промис, возвращающий true, если локаль доступна, иначе false
+	 */
 	public async isLocaleAvailable(locale: string): Promise<boolean> {
 		try {
 			const filePath = path.join(this.dataPath, 'locales', `${locale}.json5`);
@@ -193,7 +244,11 @@ export class GeographyDataService {
 		}
 	}
 
-	// Получение списка доступных локалей
+	/** Возвращает список доступных локалей приложения
+	 *
+	 * @returns {Promise<string[]>} Промис, возвращающий массив кодов доступных локалей
+	 * @throws {Error} В случае ошибки чтения директории локалей
+	 */
 	public async getAvailableLocales(): Promise<string[]> {
 		try {
 			const localesDir = path.join(this.dataPath, 'locales');

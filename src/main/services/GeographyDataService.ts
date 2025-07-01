@@ -98,7 +98,6 @@ export class GeographyDataService {
 
 	/** Загружает локализацию для указанного языка из JSON5-файла
 	 * Кэширует загруженную локализацию в Map для предотвращения повторной загрузки
-	 * Загруженная локализация устанавливается как текущая локализация
 	 *
 	 * @async
 	 * @param {string} locale - Код языка локализации
@@ -113,7 +112,6 @@ export class GeographyDataService {
 			const translations = JSON5.parse(content);
 
 			this.locales.set(locale, translations);
-			this.currentLocale = locale;
 
 			console.log(`Загружена локализация: ${locale}`);
 		} catch (error) {
